@@ -1,0 +1,47 @@
+{
+  "name": "TODO",
+  "version": "1.0.0",
+  "description": "A to-do list application.",
+  "main": "index.js",
+  "repository": "https://github.com/clayton-herbst/todo.git",
+  "author": "Clayton",
+  "scripts": {
+    "dev:watch": "npx webpack-cli --config webpack.config.js --no-cache --mode development --watch",
+    "dev:build": "npx webpack-cli --config webpack.config.js --no-cache --mode development",
+    "dev:server": "npx webpack-dev-server --progress --config webpack.config.js",
+    "dev:all": "npx npm-run-all --parallel dev:watch dev:server"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.10",
+    "@material-ui/icons": "^4.9.1",
+    "@microsoft/signalr": "^3.1.3",
+    "konva": "^4.2.2",
+    "popper.js": "^1.16.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-konva": "^16.13.0-0",
+    "react-router-dom": "^5.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-loader": "^4.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
+    "prettier": "^2.0.4",
+    "style-loader": "^1.1.4",
+    "ts-loader": "^7.0.0",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}

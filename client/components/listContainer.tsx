@@ -13,7 +13,7 @@ export default () => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.container}>
+    <Container className={classes.container} maxWidth="md">
       <Box width="100%" display="flex" flexDirection="column">
         {[0, 2, 3,4,4,4,4,4,4,4,3].map((value) => {
           return (

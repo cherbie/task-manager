@@ -1,7 +1,7 @@
 import React from "react"
 import { Container, List, Typography, Box } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
-import ListItem from "./listItem"
+import ListItem from "./ListItem"
 
 const useStyles = makeStyles({
   container: {

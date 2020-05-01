@@ -5,8 +5,8 @@ import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import ItemProgress from "./ItemProgress"
-import EditItem from "./IconButtons/EditItem"
-import MarkDone from "./IconButtons/MarkDone"
+import EditItem from "../IconButtons/EditItem"
+import MarkDone from "../IconButtons/MarkDone"
 
 const useStyles = makeStyles({
   background: {

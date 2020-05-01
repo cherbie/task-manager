@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react"
 import { Box, Container, Modal } from "@material-ui/core"
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import { makeStyles } from "@material-ui/core/styles"
-import SearchBar from "../components/SearchBar"
+import SearchBar from "../components/Presentation/SearchBar"
 import ListContainer from "../components/Containers/ListContainer"
-import DetailedItem from "../components/DetailedItem"
+import DetailedItem from "../components/Presentation/DetailedItem"
 import ModalBodyContainer from "../components/Containers/ModalBodyContainer"
-import UserActions from "../components/UserActions"
+import UserActions from "../components/Presentation/UserActions"
 
 const useStyle = makeStyles((theme) => ({
   footer: {

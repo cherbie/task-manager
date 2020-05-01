@@ -5,10 +5,10 @@ import TaskDetailedView from "../Presentation/TaskDetailedView"
 
 
 interface TaskDetailedViewContainer {
-
+  [props: string]: any;
 }
 
-export default (props: TaskDetailedViewContainer) => {
+export default (props) => {
   const classes = useStyle()
 
   return (

@@ -18,7 +18,7 @@ export interface ITaskState {
 
 export interface IUtilityState {
   modal: IModalState;
-  options: IOptionsState;
+  actions: IActionsState;
   alert: IAlertState;
 }
 
@@ -27,7 +27,7 @@ export interface IModalState {
   open: boolean;
 }
 
-export interface IOptionsState {
+export interface IActionsState {
   open: boolean;
 }
 

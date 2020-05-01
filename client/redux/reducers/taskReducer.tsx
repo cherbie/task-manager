@@ -1,17 +1,7 @@
 import { ITaskState, ITask } from "../../Schema/StateSchema"
+import initialState from "../initialState"
 
-const initialState: ITaskState = ({
-  "list": [{
-    "title": "Do homework",
-    "description": "This is a lengthy description",
-    "tags": ["homework"],
-    "progress": 0,
-    "complete": false
-  }],
-  "count": 1,
-})
-
-const taskDefault: ITask = {
+export const taskDefault: ITask = {
   "title": "",
   "description": "",
   "tags": [],
@@ -20,7 +10,7 @@ const taskDefault: ITask = {
 }
 
 
-export default (state: ITaskState = initialState, action) => {
+export default (state: ITaskState = initialState.tasks, action) => {
   switch(action.type) {
     case "add": {
       if(typeof action.task === "undefined")

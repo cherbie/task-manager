@@ -1,19 +1,8 @@
 import { IUtilityState } from "../../Schema/StateSchema"
+import initialState from "../initialState"
 
-const initialState: IUtilityState = ({
-  modal: {
-    open: false
-  },
-  options: {
-    open: false
-  },
-  alert: {
-    open: false,
-    type: "success"
-  }
-})
-
-export default (state: IUtilityState = initialState, action) => {
+export default (state: IUtilityState = initialState.utility, action) => {
+  console.log(state)
   switch(action.type) {
     case "modal": {
       if(typeof action.open === "undefined")

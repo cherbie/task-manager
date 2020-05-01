@@ -5,9 +5,9 @@ import { makeStyles } from "@material-ui/core/styles"
 import SearchBar from "../components/Presentation/SearchBar"
 import TodoContainer from "../components/Containers/TodoContainer"
 import TaskDetailedViewContainer from "../components/Containers/TaskDetailedViewContainer"
-import UserActions from "../components/Presentation/UserActions"
+import ActionsContainer from "../components/Containers/ActionsContainer"
 import { connect } from "react-redux"
-import { IUtilityState, ITaskState } from "../Schema/StateSchema"
+import { IReduxState} from "../Schema/StateSchema"
 import { openModal, closeModal } from "../redux/actions/modalActions"
 
 const useStyle = makeStyles((theme) => ({
@@ -20,8 +20,7 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 interface IApp {
-  tasks: ITaskState,
-  utility: IUtilityState
+  state: IReduxState;
   openModal: any;
   closeModal?: any;
 }
@@ -29,8 +28,8 @@ interface IApp {
 const App = (props: IApp) => {
   const classes = useStyle()
   console.log(`task state:`)
-  console.log(props.tasks)
-  console.log(props.utility)
+  console.log(props.state)
+  console.log(props.openModal)
 
   return (
     <Box component={Container} minHeight="100%" display="flex" justifyContent="center">
@@ -41,23 +40,28 @@ const App = (props: IApp) => {
         <TodoContainer />
       </Box>
       <Box className={classes.footer} zIndex="tooltip">
-        <UserActions />
+        <ActionsContainer />
       </Box>
-      <Modal open={props.utility.modal.open}>
-        <>
+      <Modal open={props.state.utility.modal.open}>
+        <div>
           <TaskDetailedViewContainer />
-        </>
+        </div>
       </Modal>
-      <Button onClick={() => {props.openModal(); setTimeout(props.closeModal, 5000);}}>
+      <Button onClick={() => props.openModal()}>
         Test Modal
       </Button>
     </Box>
   )
 }
 
-const mapStateToProps = (state) => ({ tasks: state.tasks, utility: state.utility })
+const mapStateToProps = (state) => ({
+  state: state
+})
 
-const mapDispatchToProps = ({openModal, closeModal})
+const mapDispatchToProps = (dispatch) => ({
+  openModal: () => dispatch(openModal),
+  closeModal: () => dispatch(closeModal)
+})
 
 export default connect(
   mapStateToProps,

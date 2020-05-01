@@ -1,15 +1,23 @@
 import React from "react"
 import { Box, Slider } from "@material-ui/core"
 
-export default () => {
+interface ITaskProgress {
+  inputProps: {
+    name: string,
+    onChangeCommitted: any
+  }
+}
+export default (props: ITaskProgress) => {
   
   return (
     <Box minWidth={100}>
       <Slider
         marks={marks}
+        name={props.inputProps.name}
         max={4}
         min={0}
         defaultValue={0}
+        onChangeCommitted={props.inputProps.onChangeCommitted}
       />
     </Box>
   )

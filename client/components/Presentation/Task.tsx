@@ -35,7 +35,7 @@ export default () => {
             </Box>
           </TaskColContainer>
           <TaskColContainer flexGrow={1} flexBasis={3}>
-            <TaskProgress />
+            <TaskProgress inputProps={{name: "progress", onChangeCommitted: () => console.log("change committed")}} />
           </TaskColContainer>
           <TaskColContainer flexBasis={3} >
             <MarkDone />

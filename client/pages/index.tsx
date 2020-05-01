@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { Box, Container, Modal, CircularProgress, Typography, IconButton } from "@material-ui/core"
-import { SpeedDial, SpeedDialAction } from "@material-ui/lab"
+import { Box, Container, Modal } from "@material-ui/core"
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import SaveIcon from "@material-ui/icons/Save"
-import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon"
 import { makeStyles } from "@material-ui/core/styles"
 import SearchBar from "../components/SearchBar"
-import ListContainer from "../components/ListContainer"
+import ListContainer from "../components/Containers/ListContainer"
 import DetailedItem from "../components/DetailedItem"
-import ModalBodyContainer from "../components/ModalBodyContainer"
+import ModalBodyContainer from "../components/Containers/ModalBodyContainer"
+import UserActions from "../components/UserActions"
 
 const useStyle = makeStyles((theme) => ({
   footer: {
@@ -17,16 +14,8 @@ const useStyle = makeStyles((theme) => ({
     bottom: 0,
     left: 0,
     width: "100vw"
-  },
-  speedDial: {
-    position: 'fixed',
-    height: "auto",
-    bottom: theme.spacing(4),
-    right: theme.spacing(4)
   }
 }))
-
-const actions = [{icon: <AddCircleIcon />, name: "Add"},{ icon: <SaveIcon />, name: 'Save' }]
 
 export default () => {
   const classes = useStyle()
@@ -40,24 +29,9 @@ export default () => {
         <ListContainer />
       </Box>
       <Box className={classes.footer} zIndex="tooltip">
-        <SpeedDial
-          className={classes.speedDial}
-          ariaLabel="todo-options"
-          icon={<SpeedDialIcon />}
-          direction="up"
-          open={false}
-        >
-          {actions.map((value, index) => (
-            <SpeedDialAction
-              icon={value.icon}
-              key={index}
-              tooltipTitle={value.name}
-            />
-          ))
-          }
-        </SpeedDial>
+        <UserActions />
       </Box>
-      <Modal open={true}>
+      <Modal open={false}>
         <div>
           <ModalBodyContainer>
             <DetailedItem />

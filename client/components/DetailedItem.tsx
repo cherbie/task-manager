@@ -2,6 +2,7 @@ import React from "react"
 import { Box, Container, TextField, Button, Paper, Input, FormLabel, Chip, IconButton, Slider } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import AddIcon from '@material-ui/icons/Add';
+import ItemProgress from "./ItemProgress"
 
 const marks = [{
   value:0,
@@ -39,13 +40,8 @@ export default () => {
               <Chip label="Test Tag" onDelete={() => console.log("delete")} />
             </Box>
           </Box>
-          <Box m={1} p={2} minWidth={100}>
-            <Slider
-              marks={marks}
-              max={4}
-              min={0}
-              defaultValue={0}
-            />
+          <Box m={1} p={2}>
+            <ItemProgress />
           </Box>
           <Box m={1} p={2}>
             <Button variant="contained" size="small" type="button">

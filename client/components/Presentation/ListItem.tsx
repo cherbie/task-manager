@@ -3,7 +3,7 @@ import { ListItem, Box, Container, Typography, IconButton, Badge, Slider, Chip }
 import { makeStyles } from "@material-ui/core/styles"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
-import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 import ItemProgress from "./ItemProgress"
 import EditItem from "../IconButtons/EditItem"
 import MarkDone from "../IconButtons/MarkDone"

@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import SearchBar from "../components/SearchBar"
 import ListContainer from "../components/ListContainer"
 import DetailedItem from "../components/DetailedItem"
+import ModalBodyContainer from "../components/ModalBodyContainer"
 
 const useStyle = makeStyles((theme) => ({
   footer: {
@@ -57,7 +58,11 @@ export default () => {
         </SpeedDial>
       </Box>
       <Modal open={true}>
-        <DetailedItem />
+        <div>
+          <ModalBodyContainer>
+            <DetailedItem />
+          </ModalBodyContainer>
+        </div>
       </Modal>
     </Box>
   )

@@ -15,9 +15,9 @@ export default () => {
   return (
     <Container className={classes.container} maxWidth="md">
       <Box width="100%" display="flex" flexDirection="column">
-        {[0, 2, 3,4,4,4,4,4,4,4,3].map((value) => {
+        {[0, 2, 3,4,4,4,4,4,4,4,3].map((value, index) => {
           return (
-            <ListItem />
+            <ListItem key={index} />
           )
           })}
       </Box>

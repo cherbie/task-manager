@@ -3,9 +3,8 @@ import { Box, Container, Modal, Button } from "@material-ui/core"
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import { makeStyles } from "@material-ui/core/styles"
 import SearchBar from "../components/Presentation/SearchBar"
-import ListContainer from "../components/Containers/ListContainer"
-import DetailedItem from "../components/Presentation/DetailedItem"
-import ModalBodyContainer from "../components/Containers/ModalBodyContainer"
+import TodoContainer from "../components/Containers/TodoContainer"
+import TaskDetailedViewContainer from "../components/Containers/TaskDetailedViewContainer"
 import UserActions from "../components/Presentation/UserActions"
 import { connect } from "react-redux"
 import { IUtilityState, ITaskState } from "../Schema/StateSchema"
@@ -39,17 +38,15 @@ const App = (props: IApp) => {
         <SearchBar />
       </Box>
       <Box py={2} display="flex" justifyContent="center">
-        <ListContainer />
+        <TodoContainer />
       </Box>
       <Box className={classes.footer} zIndex="tooltip">
         <UserActions />
       </Box>
       <Modal open={props.utility.modal.open}>
-        <div>
-          <ModalBodyContainer>
-            <DetailedItem />
-          </ModalBodyContainer>
-        </div>
+        <>
+          <TaskDetailedViewContainer />
+        </>
       </Modal>
       <Button onClick={() => {props.openModal(); setTimeout(props.closeModal, 5000);}}>
         Test Modal

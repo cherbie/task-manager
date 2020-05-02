@@ -9,13 +9,19 @@ export default (state: ITaskState = initialState.tasks, action) => {
         return state // error
       
       let task = Object.assign({}, defaultTask, action.task)
+
+      // Set filter status if appropriate
+      let regex = new RegExp(state.filter.search.match, "i")
+      if(state.filter.search.on && regex.test(task.title))
+        task.filter = true
+      
       let nstate = {...state} // new state
-      if(action.index === -1) {
-        nstate.list.push(task)  // add new task
-      }
-      else {
-        nstate.list[action.index] = action.task // edit existing task
-      }
+
+      if(action.index === -1) // add new task
+        nstate.list.push(task)
+      else // edit existing task
+        nstate.list[action.index] = task
+
       return {...state, ...nstate}
     }
     case TYPES.UPDATE_PROGRESS: {
@@ -29,9 +35,29 @@ export default (state: ITaskState = initialState.tasks, action) => {
     case TYPES.COMPLETE_TASK: {
       if(typeof action.index === "undefined" || action.index < 0)
         return state
-    
       let nstate = {...state}
       nstate.list = state.list.filter((v, index) => index !== action.index) // exclude the appropriate index element
+      return {...state, ...nstate}
+    }
+    case TYPES.SEARCH_FILTER: {
+      if(typeof action.match === "undefined" || typeof action.on === "undefined")
+        return state
+      
+      let nstate = {...state}
+      nstate.filter.search.on = action.on
+      nstate.filter.search.match = action.match
+
+      // SET TASK TO DISPLAY OR NOT
+      let regex = new RegExp(action.match, 'i')
+      
+      nstate.list = state.list.map((value, index) => {
+        if(regex.test(value.title)) // match string with regular expression
+          value.filter = true
+        else
+          value.filter = false
+        return value
+      })
+
       return {...state, ...nstate}
     }
     default: return state

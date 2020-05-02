@@ -5,5 +5,7 @@ export default {
   ACTIONS: "actions",
   TASK: "task", // add and edit tasks
   UPDATE_PROGRESS: "progress",
-  COMPLETE_TASK: "complete"
+  COMPLETE_TASK: "complete",
+  SEARCH_FILTER: "searchFilter",
+  TOGGLE_SEARCH_FILTER: "toggleSearchFilter"
 }

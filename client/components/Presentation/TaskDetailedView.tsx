@@ -19,17 +19,9 @@ interface ITaskDetailedView {
 export default (props: ITaskDetailedView) => {
   const [tagInput, setTagInput] = useState("")
 
-  console.log("Detailed view id:")
-  console.log(props.id)
-  console.log(props.task)
-  console.log("Default task")
-  console.log(defaultTask)
-
   const formik = useFormik({
     initialValues: Object.assign({}, defaultTask, props.id !== -1 ? props.task : {}),
     onSubmit: ((values: ITask) => {
-      console.log("submitted forms")
-      console.log(values)
       props.onSubmit(props.id, values)
     }),
     validationSchema: TaskFormSchema,
@@ -59,7 +51,6 @@ export default (props: ITaskDetailedView) => {
   const updateProgress = (value: number) => {
     ProgressSchema.validate(value)
       .then((value) => {
-        console.log("Validate progress: " + value)
         formik.setFieldValue("progress", value, false)
       })
       .catch(err => console.log(err.message))

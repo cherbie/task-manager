@@ -10,11 +10,12 @@ export interface ITask {
   progress: number;
   complete: boolean;
   index?: number
+  filter?: boolean
 }
 
 export interface ITaskState {
   list: ITask[];
-  count: number;
+  filter?: IFilter; // toggle if tasks should be filtered -- only support regex search match for now
 }
 
 export interface IUtilityState {
@@ -23,6 +24,14 @@ export interface IUtilityState {
   alert: IAlertState;
 }
 
+export interface IFilter {
+  search: ISearchFilter
+}
+
+export interface ISearchFilter {
+  on: boolean;
+  match: string;
+}
 
 export interface IModalState {
   open: boolean;

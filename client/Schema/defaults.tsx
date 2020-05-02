@@ -6,7 +6,8 @@ export const defaultTask: ITask = {
   "tags": [],
   "progress": 0,
   "complete": false,
-  "index": undefined
+  "index": undefined,
+  "filter": false
 }
 
 export const initialState: IReduxState = {
@@ -25,7 +26,12 @@ export const initialState: IReduxState = {
       "progress": 0,
       "complete": false
     }],
-    "count": 1,
+    filter: {
+      search: {
+        on: false,
+        match: ""
+      }
+    } 
   },
   utility: {
     modal: {

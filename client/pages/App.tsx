@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Box, Container, Modal, Button } from "@material-ui/core"
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import { makeStyles } from "@material-ui/core/styles"
-import SearchBar from "../components/Presentation/SearchBar"
+import SearchBarContainer from "../components/Containers/SearchBarContainer"
 import TodoContainer from "../components/Containers/TodoContainer"
 import TaskDetailedViewContainer from "../components/Containers/TaskDetailedViewContainer"
 import ActionsContainer from "../components/Containers/ActionsContainer"
@@ -36,7 +36,7 @@ const App = (props: IApp) => {
   return (
     <Box component={Container} minHeight="100%" display="flex" justifyContent="center">
       <Box py={4} display="flex" justifyContent="center">
-        <SearchBar />
+        <SearchBarContainer />
       </Box>
       <Box py={2} display="flex" justifyContent="center">
         <TodoContainer />

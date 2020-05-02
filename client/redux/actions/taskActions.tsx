@@ -18,3 +18,9 @@ export const completeTask = (index: number = -1) => ({
   type: TYPES.COMPLETE_TASK,
   index: index
 })
+
+export const filterTasksSearch = (on: boolean, match: string) => ({
+  type: TYPES.SEARCH_FILTER,
+  match: match,
+  on: on
+})

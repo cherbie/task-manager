@@ -6,6 +6,7 @@ interface ITaskProgress {
   onChangeCommitted: any,
   value?: number
 }
+
 export default (props: ITaskProgress) => {
   const [value, setValue] = useState(props.value ? props.value : 0)
 

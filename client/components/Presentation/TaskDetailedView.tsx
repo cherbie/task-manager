@@ -38,13 +38,15 @@ export default (props: ITaskDetailedView) => {
 
   const addTag = (name: string) => {
     formik.setFieldTouched("tags", true, true)
-    TagLabelSchema.isValid(name) // Yup schema validation on tag input
-      .then((valid) => {
-        if(!formik.errors.tags && valid) {
-          formik.setFieldValue("tags", [...formik.values.tags, name], true)
-          setTagInput("") // empty input
-        }
-      }).catch(err => console.log(err))
+    TagLabelSchema.validate(name) // Yup schema validation on tag input
+      .then((value) => {
+        formik.setFieldError("tags", undefined) // no error
+        formik.setFieldValue("tags", [...formik.values.tags, value], true)
+        setTagInput("") // empty input
+      }).catch(err => {
+        // handle validation error
+        formik.setFieldError("tags", err.message)
+      })
   }
 
   const deleteTag = (id: number) => {
@@ -58,7 +60,7 @@ export default (props: ITaskDetailedView) => {
         formik.setFieldValue("progress", value, false)
     }).catch(err => console.log(err))
   }
-
+  console.log(typeof(formik.errors.tags))
   return (
     <Container>
       <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
@@ -75,19 +77,13 @@ export default (props: ITaskDetailedView) => {
           </Box>
           <Box my={1} py={2} width="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center"> 
             <Box width="50%" display="flex" justifyContent="center" flexWrap="wrap">
-              <Input error={formik.errors.tags && formik.touched.tags} id="add-tag" name="tag-input" placeholder="Add Tag" value={tagInput} onChange={(e) => setTagInput(e.target.value)}/>
-              <IconButton onClick={() => addTag(tagInput)}>
-                <AddIcon />
-              </IconButton>
+              <Input error={formik.errors.tags && formik.touched.tags} id="add-tag" inputProps={{maxLength: 10}} name="tag-input" placeholder="Add Tag" value={tagInput} onChange={(e) => setTagInput(e.target.value)}/>
+              <Tooltip title={formik.errors.tags && formik.touched.tags ? formik.errors.tags : "Add"} >
+                <IconButton onClick={() => addTag(tagInput)}>
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
             </Box>
-            {formik.errors.tags && formik.touched.tags ? (
-              <Box>
-                <Typography>
-                  {formik.errors.tags}
-                </Typography>
-              </Box>
-            ) : null
-            }
             <Box width="80%" display="flex" justifyContent="center" flexWrap="wrap">
               {formik.values.tags.map((value, index) => (
                 <Box key={index} mx={1} mt={1}>

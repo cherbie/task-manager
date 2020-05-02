@@ -1,17 +1,26 @@
 import { IUtilityState } from "../../Schema/state"
-import { initialState } from "../../Schema/defaults"
+import { initialState, defaultTask } from "../../Schema/defaults"
+import TYPES from "../actions/types"
 
 export default (state: IUtilityState = initialState.utility, action) => {
   console.log(state)
   switch(action.type) {
-    case "modal": {
+    case TYPES.MODAL: {
       if(typeof action.open === "undefined")
         return state
-      let nstate = {...state}
+      let nstate = {...state} // new state
       nstate.modal.open = action.open
+      if(action.index >= 0) {
+        nstate.modal.index = action.index 
+        nstate.modal.task = action.task
+      }
+      else { // set for adding task
+        nstate.modal.index = -1
+        nstate.modal.task = Object.assign({}, defaultTask)
+      }
       return {...state, ...nstate}
     }
-    case "actions": {
+    case TYPES.ACTIONS: {
       if(typeof action.open === "undefined")
         return state
       let nstate = {...state}

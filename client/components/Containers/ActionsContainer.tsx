@@ -25,7 +25,7 @@ const mapStateToProps = (state: IReduxState) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onActionSelect: (type: "add"|"save"|"edit") => dispatch(actionSelect(type)),
+  onActionSelect: (type: "add"|"save") => dispatch(actionSelect(type)),
   onOpen: () => dispatch(openActions), // open the SpeedDial
   onClose: () => dispatch(closeActions) // close the speedDial
 })

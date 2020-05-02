@@ -1,27 +1,23 @@
 import { ITask } from "../../Schema/state"
+import TYPES from "./types"
 
 export const openActions = ({
-  type: "actions",
+  type: TYPES.ACTIONS,
   open: true
 })
 
 export const closeActions = ({
-  type: "actions",
+  type: TYPES.ACTIONS,
   open: false
 })
 
 
-export const actionSelect = (type: "add"|"save"|"edit", values?: ITask) => {
-  if (type === "add")
+export const actionSelect = (type: "add"|"save") => {
+  if(type === "add")
     return ({
-      type: "modal",
+      type: TYPES.MODAL,
       open: true
-    }) // open modal action object
-  else {
-    return ({
-      type: type
     })
-  }
+  else 
+    return {type: type}
 }
-
-export default { openActions, closeActions, actionSelect }

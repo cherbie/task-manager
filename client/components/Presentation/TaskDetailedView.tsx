@@ -4,31 +4,32 @@ import { makeStyles } from "@material-ui/core/styles"
 import AddIcon from '@material-ui/icons/Add'
 import TaskProgress from "./TaskProgress"
 import { useFormik } from "formik"
-import { ITask } from "../../Schema/state"
+import { ITaskState, ITask } from "../../Schema/state"
 import * as Yup from "yup"
+import { defaultTask } from "../../Schema/defaults"
 
 interface ITaskDetailedView {
   onSubmit: any;
   onExit: any;
-  values?: ITask
+  task?: ITask;
+  id?: number;
 }
 
 export default (props: ITaskDetailedView) => {
   const [tagInput, setTagInput] = useState("")
 
+  console.log("Detailed view id:")
+  console.log(props.id)
+  console.log(props.task)
+  console.log("Default task")
+  console.log(defaultTask)
 
   const formik = useFormik({
-    initialValues: {
-      title: "",
-      description: "",
-      tags: ["homework", "work"],
-      progress: 0
-    },
-    onSubmit: (values => {
+    initialValues: Object.assign({}, defaultTask, props.id !== -1 ? props.task : {}),
+    onSubmit: ((values: ITask) => {
       console.log("submitted forms")
       console.log(values)
-      props.onSubmit(values)
-      props.onExit()
+      props.onSubmit(props.id, values)
     }),
     validationSchema: TaskFormSchema,
     validateOnBlur: true,
@@ -55,12 +56,14 @@ export default (props: ITaskDetailedView) => {
   }
 
   const updateProgress = (value: number) => {
-    ProgressSchema.isValid(value).then((valid) => {
-      if(valid)
+    ProgressSchema.validate(value)
+      .then((value) => {
+        console.log("Validate progress: " + value)
         formik.setFieldValue("progress", value, false)
-    }).catch(err => console.log(err))
+      })
+      .catch(err => console.log(err.message))
   }
-  console.log(typeof(formik.errors.tags))
+
   return (
     <React.Fragment>
       <Container>
@@ -69,7 +72,7 @@ export default (props: ITaskDetailedView) => {
             <Box my={1} py={2} width="50%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
               <Tooltip title={formik.errors.title ? formik.errors.title : "Required"}>
                 <span>
-                  <Input id="task-title" name="title" onChange={formik.handleChange} value={formik.values.title} error={formik.errors.title && formik.touched.title} placeholder="Title"/>
+                  <Input id="task-title" name="title" onChange={formik.handleChange} value={formik.values.title} error={formik.errors.title && formik.touched.title ? true : false} placeholder="Title"/>
                 </span>
               </Tooltip>
             </Box>
@@ -78,7 +81,7 @@ export default (props: ITaskDetailedView) => {
             </Box>
             <Box my={1} py={2} width="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center"> 
               <Box width="50%" display="flex" justifyContent="center" flexWrap="wrap">
-                <Input error={formik.errors.tags && formik.touched.tags} id="add-tag" inputProps={{maxLength: 10}} name="tag-input" placeholder="Add Tag" value={tagInput} onChange={(e) => setTagInput(e.target.value)}/>
+                <Input error={formik.errors.tags && formik.touched.tags ? true : false} id="add-tag" inputProps={{maxLength: 10}} name="tag-input" placeholder="Add Tag" value={tagInput} onChange={(e) => setTagInput(e.target.value)}/>
                 <Tooltip title={formik.errors.tags && formik.touched.tags ? formik.errors.tags : "Add"} >
                   <IconButton onClick={() => addTag(tagInput)}>
                     <AddIcon />
@@ -94,7 +97,7 @@ export default (props: ITaskDetailedView) => {
               </Box>
             </Box>
             <Box my={1} py={2} width="50%">
-              <TaskProgress name="progress" onChangeCommitted={(event, value) => updateProgress(value)} />
+              <TaskProgress name="progress" value={formik.values.progress} onChangeCommitted={(event, value) => updateProgress(value)} />
             </Box>
           </Box>
           <Box my={1} width="100%" display="flex" justifyContent="center">

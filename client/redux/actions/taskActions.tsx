@@ -1,6 +1,20 @@
 import { defaultTask } from "../../Schema/defaults"
+import TYPES from "./types"
+import { ITask } from "../../Schema/state"
 
-export const addNewTask = (task) => ({
-  type: "addTask",
-  task: Object.assign(defaultTask, task) // ensure all fields are defined
+export const addTask = (index: number = -1, task: ITask) => ({
+  type: TYPES.TASK,
+  task: {...defaultTask, ...task}, // ensure all fields are defined
+  index: index,
+})
+
+export const updateProgress = (index: number = -1, progress: number) => ({
+  type: TYPES.UPDATE_PROGRESS,
+  progress: progress,
+  index: index
+})
+
+export const completeTask = (index: number = -1) => ({
+  type: TYPES.COMPLETE_TASK,
+  index: index
 })

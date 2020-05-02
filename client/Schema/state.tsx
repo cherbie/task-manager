@@ -9,6 +9,7 @@ export interface ITask {
   tags: string[];
   progress: number;
   complete: boolean;
+  index?: number
 }
 
 export interface ITaskState {
@@ -25,6 +26,8 @@ export interface IUtilityState {
 
 export interface IModalState {
   open: boolean;
+  task?: ITask; // edit task functionality
+  index?: number; // edit task functionality
 }
 
 export interface IActionsState {

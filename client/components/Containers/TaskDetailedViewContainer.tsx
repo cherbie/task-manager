@@ -3,16 +3,16 @@ import { Paper, Container, Badge } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import TaskDetailedView from "../Presentation/TaskDetailedView"
 import { connect } from "react-redux"
-import { ITask } from "../../Schema/state"
+import { ITask, IReduxState } from "../../Schema/state"
 import { closeModal } from "../../redux/actions/modalActions"
-import { addNewTask } from "../../redux/actions/taskActions"
+import { addTask } from "../../redux/actions/taskActions"
 
 
 interface ITaskDetailedViewContainer {
   onExit: any;
   onSubmit: any;
-  //values: ITask;
-  [props: string]: any;
+  utility: any; // state.utility
+  tasks: any; // state.tasks
 }
 
 const TaskDetailedViewContainer = (props: ITaskDetailedViewContainer) => {
@@ -21,7 +21,7 @@ const TaskDetailedViewContainer = (props: ITaskDetailedViewContainer) => {
   return (
     <Container className={classes.container} maxWidth="sm">
       <Paper className={classes.texture} variant="outlined" elevation={5}>
-        <TaskDetailedView onSubmit={props.onSubmit} onExit={props.onExit} />
+        <TaskDetailedView id={props.utility.modal.index} task={props.utility.modal.task} onSubmit={props.onSubmit} onExit={props.onExit} />
       </Paper>
     </Container>
   )
@@ -40,9 +40,17 @@ const useStyle = makeStyles((theme) => ({
   }
 }))
 
-const mapDispatchToProps = (dispatch) => ({
-  onExit: () => dispatch(closeModal),
-  onSubmit: (task: ITask) => dispatch(addNewTask(task))
+const mapStateToProps = (state: IReduxState) => ({
+  utility: state.utility,
+  tasks: state.tasks
 })
 
-export default connect(null, mapDispatchToProps)(TaskDetailedViewContainer)
+const mapDispatchToProps = (dispatch) => ({
+  onExit: () => dispatch(closeModal),
+  onSubmit: (id: number = -1, task: ITask) => {
+    dispatch(addTask(id, task))
+    dispatch(closeModal)
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskDetailedViewContainer)

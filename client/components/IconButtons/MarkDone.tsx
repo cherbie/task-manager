@@ -4,11 +4,12 @@ import DoneOutlineIcon from '@material-ui/icons/DoneOutline'
 
 interface IMarkDoneBtn {
   onClick: any;
-  [props: string]: any;
+  id: number;
+  [other: string]: any;
 }
 
 export default (props: IMarkDoneBtn) => (
-  <IconButton {...props} >
+  <IconButton {...props.other} onClick={props.onClick} >
     <DoneOutlineIcon htmlColor="green" />
   </IconButton>
 )

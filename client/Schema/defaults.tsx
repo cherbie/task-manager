@@ -1,12 +1,21 @@
 import { IReduxState, ITask } from "./state"
 
+export const defaultTask: ITask = {
+  "title": "",
+  "description": "",
+  "tags": [],
+  "progress": 0,
+  "complete": false,
+  "index": undefined
+}
+
 export const initialState: IReduxState = {
   tasks: {
     "list": [{
       "title": "Do homework",
       "description": "This is a lengthy description.",
       "tags": ["homework"],
-      "progress": 0,
+      "progress": 2,
       "complete": false
     },
     {
@@ -20,7 +29,9 @@ export const initialState: IReduxState = {
   },
   utility: {
     modal: {
-      open: false
+      open: false,
+      task: defaultTask,
+      index: -1
     },
     actions: {
       open: false
@@ -30,12 +41,4 @@ export const initialState: IReduxState = {
       type: "success"
     }
   }
-}
-
-export const defaultTask: ITask = {
-  "title": "",
-  "description": "",
-  "tags": [],
-  "progress": 0,
-  "complete": false
 }

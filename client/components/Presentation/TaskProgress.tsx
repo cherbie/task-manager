@@ -2,10 +2,9 @@ import React from "react"
 import { Box, Slider } from "@material-ui/core"
 
 interface ITaskProgress {
-  inputProps: {
-    name: string,
-    onChangeCommitted: any
-  }
+  name?: string;
+  onChangeCommitted: any,
+  defaultValue?: number
 }
 export default (props: ITaskProgress) => {
   
@@ -13,11 +12,11 @@ export default (props: ITaskProgress) => {
     <Box minWidth={100}>
       <Slider
         marks={marks}
-        name={props.inputProps.name}
+        name={props.name ? props.name : "progress"}
         max={4}
         min={0}
-        defaultValue={0}
-        onChangeCommitted={props.inputProps.onChangeCommitted}
+        defaultValue={props.defaultValue ? props.defaultValue : 0}
+        onChangeCommitted={props.onChangeCommitted}
       />
     </Box>
   )

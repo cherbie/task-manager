@@ -8,6 +8,13 @@ export const initialState: IReduxState = {
       "tags": ["homework"],
       "progress": 0,
       "complete": false
+    },
+    {
+      "title": "Do homework",
+      "description": "This is a lengthy description.",
+      "tags": ["homework", "adfdf", "asdfsdaf", "asfdsdaf", "asdfsdaf", "asfsadf"],
+      "progress": 0,
+      "complete": false
     }],
     "count": 1,
   },

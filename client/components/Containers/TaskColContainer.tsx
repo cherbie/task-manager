@@ -11,7 +11,7 @@ interface ITaskColContainer {
 
 export default (props: ITaskColContainer) => (
   <Box m={1} p={1} flexGrow={props.flexGrow ? props.flexGrow : null} flexBasis={props.flexBasis ? props.flexBasis : null}>
-    <Typography align="center" component="div" color="inherit" noWrap={true} variant={props.textVariant ? props.textVariant : "body1"} display="inline">
+    <Typography component="div" color="inherit" noWrap={true} variant={props.textVariant ? props.textVariant : "body1"} display="inline">
       {props.children}
     </Typography>
   </Box>

@@ -2,8 +2,13 @@ import React from "react"
 import { IconButton } from "@material-ui/core"
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline'
 
-export default () => (
-  <IconButton>
+interface IMarkDoneBtn {
+  onClick: any;
+  [props: string]: any;
+}
+
+export default (props: IMarkDoneBtn) => (
+  <IconButton {...props} >
     <DoneOutlineIcon htmlColor="green" />
   </IconButton>
 )

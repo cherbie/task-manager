@@ -11,7 +11,7 @@ import { addNewTask } from "../../redux/actions/taskActions"
 interface ITaskDetailedViewContainer {
   onExit: any;
   onSubmit: any;
-  values: ITask;
+  //values: ITask;
   [props: string]: any;
 }
 
@@ -36,16 +36,13 @@ const useStyle = makeStyles((theme) => ({
     width: "100vw"
   },
   texture: {
-    background: '#cce7e8',
     opacity: 0.9
   }
 }))
-
-const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
   onExit: () => dispatch(closeModal),
   onSubmit: (task: ITask) => dispatch(addNewTask(task))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskDetailedViewContainer)
+export default connect(null, mapDispatchToProps)(TaskDetailedViewContainer)

@@ -7,6 +7,7 @@ import { useFormik } from "formik"
 import { ITaskState, ITask } from "../../Schema/state"
 import * as Yup from "yup"
 import { defaultTask } from "../../Schema/defaults"
+import Tags from "./Tags"
 
 interface ITaskDetailedView {
   onSubmit: any;
@@ -89,11 +90,7 @@ export default (props: ITaskDetailedView) => {
                 </Tooltip>
               </Box>
               <Box width="80%" display="flex" justifyContent="center" flexWrap="wrap">
-                {formik.values.tags.map((value, index) => (
-                  <Box key={index} mx={1} mt={1}>
-                    <Chip color="primary" label={value} onDelete={() => deleteTag(index)} />
-                  </Box>
-                ))}
+                <Tags tags={formik.values.tags} container={{mx: 1, mt:1}} element={{color: "primary", onDelete: (id) => deleteTag(id)}} />
               </Box>
             </Box>
             <Box my={1} py={2} width="50%">

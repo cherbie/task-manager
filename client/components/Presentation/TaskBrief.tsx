@@ -6,6 +6,7 @@ import EditItem from "../IconButtons/EditItem"
 import MarkDone from "../IconButtons/MarkDone"
 import TaskColContainer from "../Containers/TaskColContainer"
 import { ITask } from "../../Schema/state"
+import Tags from "./Tags"
 
 interface ITaskBrief {
   task: ITask;
@@ -25,7 +26,7 @@ export default (props: ITaskBrief) => {
           <Grid container alignItems="center" justify="center" spacing={1}>
             <Grid item xs={12} sm={6} md={3}>
               <TaskColContainer flexGrow={1} flexBasis={0}>
-                <Box textAlign="center" fontWeight="fontWeightMedium" fontSize="h6.fontSize">
+                <Box component="div" textAlign="center" fontWeight="fontWeightMedium" fontSize="h6.fontSize" textOverflow="ellipsis" overflow="hidden">
                   {props.task.title ? props.task.title : "..."}
                 </Box>
               </TaskColContainer>
@@ -33,12 +34,7 @@ export default (props: ITaskBrief) => {
             <Grid item xs={12} sm={6} md={4}>
               <TaskColContainer flexGrow={1} flexBasis={0} textVariant="overline">
                 <Box display="flex" overflow="hidden" flexDirection="row" flexWrap="wrap" justifyContent="center" >
-                  {props.task.tags.map((label, index) => (
-                      <span key={index}>
-                        <Chip label={label} key={index} variant="outlined" size="small" />
-                      </span>
-                    )
-                  )}
+                  <Tags tags={props.task.tags} />
                 </Box>
               </TaskColContainer>
             </Grid>

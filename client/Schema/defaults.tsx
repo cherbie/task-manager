@@ -1,6 +1,6 @@
-import { IReduxState } from "../Schema/StateSchema"
+import { IReduxState, ITask } from "./state"
 
-const initialState: IReduxState = {
+export const initialState: IReduxState = {
   tasks: {
     "list": [{
       "title": "Do homework",
@@ -25,4 +25,10 @@ const initialState: IReduxState = {
   }
 }
 
-export default initialState
+export const defaultTask: ITask = {
+  "title": "",
+  "description": "",
+  "tags": [],
+  "progress": 0,
+  "complete": false
+}

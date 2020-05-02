@@ -1,7 +1,7 @@
 import React from "react"
 import UserActions from "../Presentation/Actions"
 import { connect } from "react-redux"
-import { IReduxState } from "../../Schema/StateSchema"
+import { IReduxState } from "../../Schema/state"
 import { openActions, closeActions, actionSelect } from "../../redux/actions/userActions"
 
 interface IActionsContainer {

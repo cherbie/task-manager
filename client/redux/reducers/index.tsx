@@ -1,8 +1,8 @@
 import taskReducer from "./taskReducer"
 import utilityReducer from "./utilityReducer"
 import { combineReducers } from "redux"
-import { IReduxState, ITask } from "../../Schema/StateSchema"
-import initialState from "../initialState"
+import { IReduxState, ITask } from "../../Schema/state"
+import { initialState } from "../../Schema/defaults"
 
 //export default combineReducers({tasks: taskReducer, utility: utilityReducer})
 
@@ -38,6 +38,12 @@ export default (state: IReduxState = initialState, action: {type: string, [props
         return state
       state.utility.actions.open = action.open 
       return {...state }
+    }
+    case "addTask": {
+      if(typeof action.task === "undefined")
+        return state
+      state.tasks.list.push(action.task)
+      return {...state}
     }
     default: return state
   }

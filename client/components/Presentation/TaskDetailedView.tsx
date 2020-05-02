@@ -4,37 +4,17 @@ import { makeStyles } from "@material-ui/core/styles"
 import AddIcon from '@material-ui/icons/Add'
 import TaskProgress from "./TaskProgress"
 import { useFormik } from "formik"
+import { ITask } from "../../Schema/state"
 import * as Yup from "yup"
 
-const marks = [{
-  value:0,
-  label:"0"
-}, {
-  value:1
-}, {
-  value: 2,
-  label: "50"
-}, {
-  value: 3
-}, {
-  value: 4,
-  label: "100"
-}]
+interface ITaskDetailedView {
+  onSubmit: any;
+  onExit: any;
+  values?: ITask
+}
 
-const TagLabelSchema = Yup.string().min(1, "Tag must have contents").max(10, "Tag label cannot exceed 10 characters")
-
-const ProgressSchema = Yup.number().min(0).max(4)
-
-// Form input validation schema
-const TaskFormSchema = Yup.object().shape({
-  title: Yup.string().required("This field is required"),
-  description: Yup.string(),
-  tags: Yup.array().of(TagLabelSchema),
-  progress: ProgressSchema
-})
-
-export default () => {
-  const [tagString, setAddTag] = useState("")
+export default (props: ITaskDetailedView) => {
+  const [tagInput, setTagInput] = useState("")
 
 
   const formik = useFormik({
@@ -47,6 +27,8 @@ export default () => {
     onSubmit: (values => {
       console.log("submitted forms")
       console.log(values)
+      props.onSubmit(values)
+      props.onExit()
     }),
     validationSchema: TaskFormSchema,
     validateOnBlur: true,
@@ -60,7 +42,7 @@ export default () => {
       .then((valid) => {
         if(!formik.errors.tags && valid) {
           formik.setFieldValue("tags", [...formik.values.tags, name], true)
-          setAddTag("") // empty input
+          setTagInput("") // empty input
         }
       }).catch(err => console.log(err))
   }
@@ -93,8 +75,8 @@ export default () => {
           </Box>
           <Box my={1} py={2} width="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center"> 
             <Box width="50%" display="flex" justifyContent="center" flexWrap="wrap">
-              <Input error={formik.errors.tags && formik.touched.tags} id="add-tag" name="tag-input" placeholder="Add Tag" value={tagString} onChange={(e) => setAddTag(e.target.value)}/>
-              <IconButton onClick={() => addTag(tagString)}>
+              <Input error={formik.errors.tags && formik.touched.tags} id="add-tag" name="tag-input" placeholder="Add Tag" value={tagInput} onChange={(e) => setTagInput(e.target.value)}/>
+              <IconButton onClick={() => addTag(tagInput)}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -106,9 +88,9 @@ export default () => {
               </Box>
             ) : null
             }
-            <Box width="100%" display="flex" justifyContent="center" flexWrap="wrap">
+            <Box width="80%" display="flex" justifyContent="center" flexWrap="wrap">
               {formik.values.tags.map((value, index) => (
-                <Box key={index} m={1}>
+                <Box key={index} mx={1} mt={1}>
                   <Chip color="primary" label={value} onDelete={() => deleteTag(index)} />
                 </Box>
               ))}
@@ -119,7 +101,7 @@ export default () => {
           </Box>
         </Box>
         <Box my={1} width="100%" display="flex" justifyContent="center">
-          <Button color="secondary" variant="text" size="small" type="reset">
+          <Button color="secondary" variant="text" size="small" type="reset" onClick={() => props.onExit()}>
             <Box color="error.main"><Typography variant="inherit">Exit</Typography></Box>
           </Button>
           <Button color="primary" variant="contained" size="small" type="submit">
@@ -130,3 +112,15 @@ export default () => {
     </Container>
   )
 }
+
+const TagLabelSchema = Yup.string().min(1, "Tag must have contents").max(10, "Tag label cannot exceed 10 characters")
+
+const ProgressSchema = Yup.number().min(0).max(4)
+
+// Form input validation schema
+const TaskFormSchema = Yup.object().shape({
+  title: Yup.string().required("This field is required"),
+  description: Yup.string(),
+  tags: Yup.array().of(TagLabelSchema),
+  progress: ProgressSchema
+})

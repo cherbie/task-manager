@@ -1,5 +1,5 @@
-import { IUtilityState } from "../../Schema/StateSchema"
-import initialState from "../initialState"
+import { IUtilityState } from "../../Schema/state"
+import { initialState } from "../../Schema/defaults"
 
 export default (state: IUtilityState = initialState.utility, action) => {
   console.log(state)

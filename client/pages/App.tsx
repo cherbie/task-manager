@@ -7,7 +7,7 @@ import TodoContainer from "../components/Containers/TodoContainer"
 import TaskDetailedViewContainer from "../components/Containers/TaskDetailedViewContainer"
 import ActionsContainer from "../components/Containers/ActionsContainer"
 import { connect } from "react-redux"
-import { IReduxState} from "../Schema/StateSchema"
+import { IReduxState} from "../Schema/state"
 import { openModal, closeModal } from "../redux/actions/modalActions"
 
 const useStyle = makeStyles((theme) => ({

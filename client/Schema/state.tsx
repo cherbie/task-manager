@@ -5,7 +5,7 @@ export interface IReduxState {
 
 export interface ITask {
   title: string;
-  description: string;
+  description?: string;
   tags: string[];
   progress: number;
   complete: boolean;

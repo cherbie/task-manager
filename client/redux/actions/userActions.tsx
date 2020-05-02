@@ -1,6 +1,4 @@
-import { ITask } from "../../Schema/StateSchema"
-import { taskDefault } from "../reducers/taskReducer"
-import { openModal } from "./modalActions"
+import { ITask } from "../../Schema/state"
 
 export const openActions = ({
   type: "actions",

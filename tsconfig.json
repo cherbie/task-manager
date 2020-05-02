@@ -3,9 +3,10 @@
     "esModuleInterop": true,
     "outDir": "./dist/",
     "sourceMap": true,
-    "module": "commonjs",
+    "module": "esnext",
     "target": "es5",
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "node"
   },
   "exclude": ["node_modules"],
   "compileOnSave": true

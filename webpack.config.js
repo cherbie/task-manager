@@ -4,8 +4,10 @@ module.exports = {
   mode: "development",
   entry: path.resolve(__dirname, "client", "index.tsx"),
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "public", "static/js")
+    filename: "[id].bundle.js",
+    chunkFilename: "[id].bundle.js",
+    path: path.resolve(__dirname, "public/assets"),
+    crossOriginLoading: "anonymous"
   },
   module: {
     rules: [
@@ -32,7 +34,7 @@ module.exports = {
       }
     ]
   },
-  devtool: "inline-cheap-source-map",
+  devtool: "cheap-module-source-map",
   resolve: {
     extensions: [".js", ".json", ".ts", ".tsx"]
   },

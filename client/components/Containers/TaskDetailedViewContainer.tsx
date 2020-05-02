@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { Paper, Container, Badge } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import TaskDetailedView from "../Presentation/TaskDetailedView"
@@ -6,7 +6,6 @@ import { connect } from "react-redux"
 import { ITask, IReduxState } from "../../Schema/state"
 import { closeModal } from "../../redux/actions/modalActions"
 import { addTask } from "../../redux/actions/taskActions"
-
 
 interface ITaskDetailedViewContainer {
   onExit: any;
@@ -19,11 +18,13 @@ const TaskDetailedViewContainer = (props: ITaskDetailedViewContainer) => {
   const classes = useStyle()
 
   return (
-    <Container className={classes.container} maxWidth="sm">
-      <Paper className={classes.texture} variant="outlined" elevation={5}>
-        <TaskDetailedView id={props.utility.modal.index} task={props.utility.modal.task} onSubmit={props.onSubmit} onExit={props.onExit} />
-      </Paper>
-    </Container>
+    <Fragment>
+      <Container className={classes.container} maxWidth="sm">
+        <Paper className={classes.texture} variant="outlined" elevation={5}>
+          <TaskDetailedView id={props.utility.modal.index} task={props.utility.modal.task} onSubmit={props.onSubmit} onExit={props.onExit} />
+        </Paper>
+      </Container>
+    </Fragment>
   )
 }
 

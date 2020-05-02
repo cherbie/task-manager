@@ -5,7 +5,7 @@ import { IReduxState } from "../../Schema/state"
 import { openActions, closeActions, actionSelect } from "../../redux/actions/userActions"
 
 interface IActionsContainer {
-  open: boolean;
+  open: any;
   onActionSelect: any;
   onOpen: any;
   onClose: any;

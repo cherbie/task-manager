@@ -4,9 +4,9 @@ import { combineReducers } from "redux"
 import { IReduxState, ITask } from "../../Schema/state"
 import { initialState } from "../../Schema/defaults"
 
-//export default combineReducers({tasks: taskReducer, utility: utilityReducer})
+export default combineReducers({tasks: taskReducer, utility: utilityReducer})
 
-export const taskDefault: ITask = {
+/*export const taskDefault: ITask = {
   "title": "",
   "description": "",
   "tags": [],
@@ -33,18 +33,6 @@ export default (state: IReduxState = initialState, action: {type: string, [props
       console.log(state)
       return {...state}
     }
-    case "actions": {
-      if(typeof action.open === "undefined")
-        return state
-      state.utility.actions.open = action.open 
-      return {...state }
-    }
-    case "addTask": {
-      if(typeof action.task === "undefined")
-        return state
-      state.tasks.list.push(action.task)
-      return {...state}
-    }
     default: return state
   }
-}
+}*/

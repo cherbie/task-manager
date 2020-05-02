@@ -7,7 +7,7 @@ import TodoContainer from "../components/Containers/TodoContainer"
 import TaskDetailedViewContainer from "../components/Containers/TaskDetailedViewContainer"
 import ActionsContainer from "../components/Containers/ActionsContainer"
 import { connect } from "react-redux"
-import { IReduxState} from "../Schema/state"
+import { IReduxState, ITaskState, IUtilityState } from "../Schema/state"
 import { openModal, closeModal } from "../redux/actions/modalActions"
 
 const useStyle = makeStyles((theme) => ({
@@ -20,7 +20,8 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 interface IApp {
-  state: IReduxState;
+  tasks: ITaskState;
+  utility: IUtilityState;
   openModal: any;
   closeModal?: any;
 }
@@ -28,7 +29,8 @@ interface IApp {
 const App = (props: IApp) => {
   const classes = useStyle()
   console.log(`task state:`)
-  console.log(props.state)
+  console.log(props.tasks)
+  console.log(props.utility)
   console.log(props.openModal)
 
   return (
@@ -42,7 +44,7 @@ const App = (props: IApp) => {
       <Box className={classes.footer} zIndex="tooltip">
         <ActionsContainer />
       </Box>
-      <Modal open={props.state.utility.modal.open}>
+      <Modal open={props.utility.modal.open}>
         <div>
           <TaskDetailedViewContainer />
         </div>
@@ -55,7 +57,8 @@ const App = (props: IApp) => {
 }
 
 const mapStateToProps = (state) => ({
-  state: state
+  tasks: state.tasks,
+  utility: state.utility
 })
 
 const mapDispatchToProps = (dispatch) => ({

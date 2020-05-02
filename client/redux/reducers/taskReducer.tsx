@@ -11,6 +11,12 @@ export default (state: ITaskState = initialState.tasks, action) => {
       state.count++; // increment number of tasks
       return {... state}
     }
+    case "addTask": {
+      if(typeof action.task === "undefined")
+        return state
+      state.list.push(action.task)
+      return {...state}
+    }
     default: return state
   }
 }

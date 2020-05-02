@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, Container, TextField, Button, Paper, Input, FormLabel, Chip, IconButton, Typography } from "@material-ui/core"
+import { Box, Container, TextField, Button, Paper, Input, FormLabel, Chip, IconButton, Typography, Tooltip } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import AddIcon from '@material-ui/icons/Add'
 import TaskProgress from "./TaskProgress"
@@ -21,12 +21,16 @@ const marks = [{
   label: "100"
 }]
 
+const TagLabelSchema = Yup.string().min(1, "Tag must have contents").max(10, "Tag label cannot exceed 10 characters")
+
+const ProgressSchema = Yup.number().min(0).max(4)
+
 // Form input validation schema
 const TaskFormSchema = Yup.object().shape({
-  title: Yup.string().required("This field is required."),
+  title: Yup.string().required("This field is required"),
   description: Yup.string(),
-  tags: Yup.array().of(Yup.string()).max(3, "Error! Too many tags."),
-  progress: Yup.number().min(0).max(4)
+  tags: Yup.array().of(TagLabelSchema),
+  progress: ProgressSchema
 })
 
 export default () => {
@@ -46,34 +50,51 @@ export default () => {
     }),
     validationSchema: TaskFormSchema,
     validateOnBlur: true,
-    validateOnChange: false,
+    validateOnChange: true,
     validateOnMount: false
   })
 
   const addTag = (name: string) => {
     formik.setFieldTouched("tags", true, true)
-    let values = formik.values.tags
-    values.push(name)
+    TagLabelSchema.isValid(name) // Yup schema validation on tag input
+      .then((valid) => {
+        if(!formik.errors.tags && valid) {
+          formik.setFieldValue("tags", [...formik.values.tags, name], true)
+          setAddTag("") // empty input
+        }
+      }).catch(err => console.log(err))
+  }
+
+  const deleteTag = (id: number) => {
+    let values = formik.values.tags.filter((value, index) => index !== id)
     formik.setFieldValue("tags", values, true)
+  }
+
+  const updateProgress = (value: number) => {
+    ProgressSchema.isValid(value).then((valid) => {
+      if(valid)
+        formik.setFieldValue("progress", value, false)
+    }).catch(err => console.log(err))
   }
 
   return (
     <Container>
       <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
         <Box display="flex" flexDirection="column" justifyContent="flex-start" alignItems="center">
-          <Box my={1} py={2} width="50%">
-            <Input id="task-title" name="title" onChange={formik.handleChange} error={formik.errors.title && formik.touched.title} placeholder="Title"/>
+          <Box my={1} py={2} width="50%" display="flex" justifyContent="center" flexDirection="column" alignItems="center">
+            <Tooltip title={formik.errors.title ? formik.errors.title : "Required"}>
+              <span>
+                <Input id="task-title" name="title" onChange={formik.handleChange} value={formik.values.title} error={formik.errors.title && formik.touched.title} placeholder="Title"/>
+              </span>
+            </Tooltip>
           </Box>
           <Box width="80%" my={1} py={2}>
-            <Input id="task-description" name="description" placeholder="Description" onChange={formik.handleChange} multiline={true} fullWidth={true} />
+            <Input id="task-description" name="description" placeholder="Description" value={formik.values.description} onChange={formik.handleChange} multiline={true} fullWidth={true} />
           </Box>
           <Box my={1} py={2} width="100%" display="flex" justifyContent="center" flexDirection="column" alignItems="center"> 
-            <Box width="50%">
-              <Input error={formik.errors.tags && formik.touched.tags} id="add-tag" name="tag-input" placeholder="Add Tag" onChange={(e) => setAddTag(e.target.value)}/>
-              <IconButton onClick={() => {
-                addTag(tagString)
-                setAddTag("")
-              }}>
+            <Box width="50%" display="flex" justifyContent="center" flexWrap="wrap">
+              <Input error={formik.errors.tags && formik.touched.tags} id="add-tag" name="tag-input" placeholder="Add Tag" value={tagString} onChange={(e) => setAddTag(e.target.value)}/>
+              <IconButton onClick={() => addTag(tagString)}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -85,16 +106,23 @@ export default () => {
               </Box>
             ) : null
             }
-            <Box width="100%" display="flex" justifyContent="center">
-              {formik.values.tags.map((value, index) => (<Box mx={1}><Chip key={index} label={value} onDelete={() => console.log("delete")} /></Box>))}
+            <Box width="100%" display="flex" justifyContent="center" flexWrap="wrap">
+              {formik.values.tags.map((value, index) => (
+                <Box key={index} m={1}>
+                  <Chip color="primary" label={value} onDelete={() => deleteTag(index)} />
+                </Box>
+              ))}
             </Box>
           </Box>
           <Box my={1} py={2} width="50%">
-            <TaskProgress inputProps={{name:"progress", onChangeCommitted: formik.handleChange}} />
+            <TaskProgress inputProps={{name:"progress", onChangeCommitted: (event, value) => updateProgress(value)}} />
           </Box>
         </Box>
         <Box my={1} width="100%" display="flex" justifyContent="center">
-          <Button variant="contained" size="small" type="submit">
+          <Button color="secondary" variant="text" size="small" type="reset">
+            <Box color="error.main"><Typography variant="inherit">Exit</Typography></Box>
+          </Button>
+          <Button color="primary" variant="contained" size="small" type="submit">
             Submit
           </Button>
         </Box>

@@ -6,6 +6,7 @@ module.exports = {
   output: {
     filename: "[id].bundle.js",
     chunkFilename: "[id].bundle.js",
+    publicPath: "/assets/",
     path: path.resolve(__dirname, "public/assets"),
     crossOriginLoading: "anonymous"
   },

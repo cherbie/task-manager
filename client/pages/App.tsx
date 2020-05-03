@@ -12,25 +12,16 @@ import { openModal, closeModal } from "../redux/actions/modalActions"
 // Code Splitting
 const TaskDetailedViewContainer = React.lazy(() => import(
   /* webpackChunkName: "modal" */
-  /* webpackPrefetch: true */
   "../components/Containers/TaskDetailedViewContainer"
 ))
 
-
-const useStyle = makeStyles((theme) => ({
-  footer: {
-    position: "fixed",
-    bottom: 0,
-    left: 0,
-    width: "100vw"
-  }
-}))
 
 interface IApp {
   tasks: ITaskState;
   utility: IUtilityState;
   openModal: any;
   closeModal?: any;
+  firebase?: any;
 }
 
 const App = (props: IApp) => {
@@ -39,6 +30,7 @@ const App = (props: IApp) => {
   console.log(props.tasks)
   console.log(props.utility)
   console.log(props.openModal)
+  console.log(props.firebase)
 
   return (
     <Fragment>
@@ -50,7 +42,7 @@ const App = (props: IApp) => {
           <TodoContainer />
         </Box>
         <Box className={classes.footer} zIndex="tooltip">
-          <ActionsContainer />
+          <ActionsContainer firebase={props.firebase} />
         </Box>
         <Modal open={props.utility.modal.open}>
           <Suspense fallback={<CircularProgress color="secondary" />}>
@@ -66,6 +58,15 @@ const App = (props: IApp) => {
     </Fragment>
   )
 }
+
+const useStyle = makeStyles(() => ({
+  footer: {
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    width: "100vw"
+  }
+}))
 
 const mapStateToProps = (state) => ({
   tasks: state.tasks,

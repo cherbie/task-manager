@@ -1,14 +1,13 @@
 import React from "react"
-import { SpeedDial, SpeedDialAction } from "@material-ui/lab"
-import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon"
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@material-ui/lab"
 import SaveIcon from "@material-ui/icons/Save"
 import { makeStyles } from "@material-ui/core/styles"
 
 interface IActions {
   open: boolean;
-  onActionSelect: any; // function
-  onActionClose?: any;
+  actionIcons: any[];
+  tooltips: string[];
+  onActionSelect: any[]; // function
   onClose: any; // function
   onOpen: any;
 }
@@ -26,21 +25,20 @@ export default (props: IActions) => {
       onOpen={props.onOpen}
       onClose={props.onClose}
     >
-      {actions.map((value, index) => {
+      {props.actionIcons.map((value, index) => {
+        let tooltip = props.tooltips[index]
         return (
           <SpeedDialAction
-            icon={value.icon}
+            icon={value}
             key={index}
-            tooltipTitle={value.name}
-            onClick={() => props.onActionSelect(value.name.toLowerCase())}
+            tooltipTitle={tooltip}
+            onClick={() => props.onActionSelect[index](tooltip.toLowerCase())}
           />
         )}
       )}
     </SpeedDial>
   )
 }
-
-const actions = [{icon: <AddCircleIcon />, name: "Add"},{ icon: <SaveIcon />, name: "Save"}]
 
 const useStyle = makeStyles((theme) => ({
   container: {

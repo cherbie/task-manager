@@ -10,5 +10,6 @@ yarn.lock
 # Firebase Files
 .firebase
 .firebaserc
+.service_account_key.json
 
 # System Wide

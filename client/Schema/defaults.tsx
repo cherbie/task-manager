@@ -45,6 +45,10 @@ export const initialState: IReduxState = {
     alert: {
       open: false,
       type: "success"
+    },
+    user: {
+      details: {},
+      uid: "test"
     }
   }
 }

@@ -1,30 +1,27 @@
 import React, { useState } from "react"
+import axios from "axios"
 import * as firebase from "firebase/app"
 import { useDispatch } from "react-redux"
-import axios from "axios"
 import { setTasks } from "../redux/actions/taskActions"
-
-const onLoginAsync = (uid) => {
-  const fetchTasks = (uid: string) => {
-    let body = {
-      "uid": uid
-    }
-    return axios.post("https://us-central1-todo-61039.cloudfunctions.net/api/getTasks", body) // firebase function
-  }
-
-  return (dispatch) => {
-    return fetchTasks(uid).then((res) => {
-        console.log(res.data)
-        if(res.data.ok)
-          dispatch(setTasks(res.data.tasks)) // dispatch the set tasks event
-    }).catch(err => console.error(err))
-  }
-}
+import { setUser } from "../redux/actions/userActions"
+import useApiAsync from "./useApiAsync"
 
 export default (firebaseApp) => {
   const [isLoggedIn, setLoggedIn] = useState(false)
-  const [user, setUser] = useState(undefined)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch() // redux store dispatch accessor
+  const { fetchDbTasks } = useApiAsync()
+
+  // Async action to be processed by redux-thunk middleware
+  const onLoginAsync = (uid) => {
+    return (dispatch) => {
+      return fetchDbTasks(uid).then((res) => {
+          if(res.data.ok)
+            dispatch(setTasks(res.data.tasks)) // dispatch the set tasks event
+          else
+            console.error(res.data.msg)
+      }).catch(err => console.error(err))
+    }
+  }
 
   let provider = new firebase.auth.GoogleAuthProvider() // Google Sign-in
 
@@ -32,7 +29,7 @@ export default (firebaseApp) => {
   const firebaseLogin = async () => {
     firebaseApp.auth().signInWithPopup(provider).then(res => {
       setLoggedIn(true)
-      setUser(res.user)
+      dispatch(setUser(res.additionalUserInfo.profile, res.user.uid))
       console.log(res)
       dispatch(onLoginAsync(res.user.uid))
     }).catch(err => {
@@ -46,11 +43,11 @@ export default (firebaseApp) => {
     firebaseApp.auth().signOut()
       .then(() => {
         setLoggedIn(false) // toggle user login
-        setUser(undefined)
+        setUser({}, "")
         dispatch(setTasks([])) // clear task list
       })
       .catch(err => console.error(err))
   }
 
-  return { isLoggedIn, user, firebaseLogin, firebaseLogout }
+  return { isLoggedIn, firebaseLogin, firebaseLogout }
 }

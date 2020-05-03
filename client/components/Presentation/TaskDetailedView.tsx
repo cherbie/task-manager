@@ -4,9 +4,9 @@ import { makeStyles } from "@material-ui/core/styles"
 import AddIcon from '@material-ui/icons/Add'
 import TaskProgress from "./TaskProgress"
 import { useFormik } from "formik"
-import { ITaskState, ITask } from "../../Schema/state"
+import { ITaskState, ITask } from "../../schema/state"
 import * as Yup from "yup"
-import { defaultTask } from "../../Schema/defaults"
+import { defaultTask } from "../../schema/defaults"
 import Tags from "./Tags"
 
 interface ITaskDetailedView {

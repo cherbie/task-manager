@@ -1,5 +1,5 @@
-import { ITaskState, ITask } from "../../Schema/state"
-import { initialState, defaultTask } from "../../Schema/defaults"
+import { ITaskState, ITask } from "../../schema/state"
+import { initialState, defaultTask } from "../../schema/defaults"
 import TYPES from "../actions/types"
 
 export default (state: ITaskState = initialState.tasks, action) => {

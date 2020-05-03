@@ -22,6 +22,7 @@ export interface IUtilityState {
   modal: IModalState;
   actions: IActionsState;
   alert: IAlertState;
+  user: IUser;
 }
 
 export interface IFilter {
@@ -46,4 +47,9 @@ export interface IActionsState {
 export interface IAlertState {
   open: boolean;
   type: "success"|"error";
+}
+
+export interface IUser {
+  details: object;
+  uid: string;
 }

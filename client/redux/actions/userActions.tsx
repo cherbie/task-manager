@@ -1,4 +1,4 @@
-import { ITask } from "../../Schema/state"
+import { ITask } from "../../schema/state"
 import TYPES from "./types"
 
 export const openActions = ({
@@ -21,3 +21,9 @@ export const actionSelect = (type: "add"|"save") => {
   else 
     return {type: type}
 }
+
+export const setUser = (details: object, uid: string) => ({
+  type: TYPES.SET_USER,
+  details: details,
+  uid: uid
+})

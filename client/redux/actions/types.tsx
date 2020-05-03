@@ -8,5 +8,6 @@ export default {
   COMPLETE_TASK: "complete",
   SEARCH_FILTER: "searchFilter",
   TOGGLE_SEARCH_FILTER: "toggleSearchFilter",
-  SET_TASKS: "setTasks"
+  SET_TASKS: "setTasks",
+  SET_USER: "setUser"
 }

@@ -1,5 +1,5 @@
-import { IUtilityState } from "../../Schema/state"
-import { initialState, defaultTask } from "../../Schema/defaults"
+import { IUtilityState } from "../../schema/state"
+import { initialState, defaultTask } from "../../schema/defaults"
 import TYPES from "../actions/types"
 
 export default (state: IUtilityState = initialState.utility, action) => {
@@ -25,6 +25,14 @@ export default (state: IUtilityState = initialState.utility, action) => {
       let nstate = {...state}
       nstate.actions.open = action.open
       return {...state, ...nstate}
+    }
+    case TYPES.SET_USER: {
+      if(typeof action.details === "undefined" || typeof action.uid === "undefined")
+        return state
+      let nstate = {...state}
+      nstate.user.details = {...action.details}
+      nstate.user.uid = action.uid
+      return {...nstate}
     }
     default: return state
   }

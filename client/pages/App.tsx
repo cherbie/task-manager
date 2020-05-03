@@ -6,7 +6,7 @@ import SearchBarContainer from "../components/Containers/SearchBarContainer"
 import TodoContainer from "../components/Containers/TodoContainer"
 import ActionsContainer from "../components/Containers/ActionsContainer"
 import { connect } from "react-redux"
-import { IReduxState, ITaskState, IUtilityState } from "../Schema/state"
+import { IReduxState, ITaskState, IUtilityState } from "../schema/state"
 import { openModal, closeModal } from "../redux/actions/modalActions"
 
 // Code Splitting

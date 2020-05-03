@@ -17,6 +17,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_modalActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../redux/actions/modalActions */ "./client/redux/actions/modalActions.tsx");
 /* harmony import */ var _redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../redux/actions/taskActions */ "./client/redux/actions/taskActions.tsx");
+/* harmony import */ var _hooks_useApiAsync__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hooks/useApiAsync */ "./client/hooks/useApiAsync.tsx");
+var __spreadArrays = undefined && undefined.__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) {
+    s += arguments[i].length;
+  }
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) {
+    for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) {
+      r[k] = a[j];
+    }
+  }
+
+  return r;
+};
+
+
 
 
 
@@ -27,6 +43,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var TaskDetailedViewContainer = function TaskDetailedViewContainer(props) {
   var classes = useStyle();
+  var updateDbTasks = Object(_hooks_useApiAsync__WEBPACK_IMPORTED_MODULE_7__["default"])().updateDbTasks; // no need to debounce
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Container"], {
     className: classes.container,
     maxWidth: "sm"
@@ -37,7 +55,13 @@ var TaskDetailedViewContainer = function TaskDetailedViewContainer(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Presentation_TaskDetailedView__WEBPACK_IMPORTED_MODULE_3__["default"], {
     id: props.utility.modal.index,
     task: props.utility.modal.task,
-    onSubmit: props.onSubmit,
+    onSubmit: function onSubmit(id, task) {
+      props.onSubmit(id, task);
+      updateDbTasks({
+        uid: props.utility.user.uid,
+        tasks: __spreadArrays(props.tasks.list, [task])
+      });
+    },
     onExit: props.onExit
   }))));
 };
@@ -101,7 +125,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TaskProgress__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TaskProgress */ "./client/components/Presentation/TaskProgress.tsx");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
-/* harmony import */ var _Schema_defaults__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Schema/defaults */ "./client/Schema/defaults.tsx");
+/* harmony import */ var _schema_defaults__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../schema/defaults */ "./client/schema/defaults.tsx");
 /* harmony import */ var _Tags__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Tags */ "./client/components/Presentation/Tags.tsx");
 var __spreadArrays = undefined && undefined.__spreadArrays || function () {
   for (var s = 0, i = 0, il = arguments.length; i < il; i++) {
@@ -131,7 +155,7 @@ var __spreadArrays = undefined && undefined.__spreadArrays || function () {
       setTagInput = _a[1];
 
   var formik = Object(formik__WEBPACK_IMPORTED_MODULE_4__["useFormik"])({
-    initialValues: Object.assign({}, _Schema_defaults__WEBPACK_IMPORTED_MODULE_6__["defaultTask"], props.id !== -1 ? props.task : {}),
+    initialValues: Object.assign({}, _schema_defaults__WEBPACK_IMPORTED_MODULE_6__["defaultTask"], props.id !== -1 ? props.task : {}),
     onSubmit: function onSubmit(values) {
       props.onSubmit(props.id, values);
     },

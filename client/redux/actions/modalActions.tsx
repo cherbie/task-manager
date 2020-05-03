@@ -1,6 +1,6 @@
 import TYPES from "./types"
-import { ITask } from "../../Schema/state"
-import { defaultTask } from "../../Schema/defaults"
+import { ITask } from "../../schema/state"
+import { defaultTask } from "../../schema/defaults"
 
 // Open Modal - redux action object
 export const openModal = ({

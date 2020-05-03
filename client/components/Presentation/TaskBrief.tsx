@@ -5,7 +5,7 @@ import TaskProgress from "./TaskProgress"
 import EditItem from "../IconButtons/EditItem"
 import MarkDone from "../IconButtons/MarkDone"
 import TaskColContainer from "../Containers/TaskColContainer"
-import { ITask } from "../../Schema/state"
+import { ITask } from "../../schema/state"
 import Tags from "./Tags"
 
 interface ITaskBrief {

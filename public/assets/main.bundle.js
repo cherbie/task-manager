@@ -203,66 +203,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./client/Schema/defaults.tsx":
-/*!************************************!*\
-  !*** ./client/Schema/defaults.tsx ***!
-  \************************************/
-/*! exports provided: defaultTask, initialState */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultTask", function() { return defaultTask; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialState", function() { return initialState; });
-var defaultTask = {
-  "title": "",
-  "description": "",
-  "tags": [],
-  "progress": 0,
-  "complete": false,
-  "index": undefined,
-  "filter": false
-};
-var initialState = {
-  tasks: {
-    "list": [{
-      "title": "Do homework",
-      "description": "This is a lengthy description.",
-      "tags": ["homework"],
-      "progress": 2,
-      "complete": false
-    }, {
-      "title": "Do homework",
-      "description": "This is a lengthy description.",
-      "tags": ["homework", "adfdf", "asdfsdaf", "asfdsdaf", "asdfsdaf", "asfsadf"],
-      "progress": 0,
-      "complete": false
-    }],
-    filter: {
-      search: {
-        on: false,
-        match: ""
-      }
-    }
-  },
-  utility: {
-    modal: {
-      open: false,
-      task: defaultTask,
-      index: -1
-    },
-    actions: {
-      open: false
-    },
-    alert: {
-      open: false,
-      type: "success"
-    }
-  }
-};
-
-/***/ }),
-
 /***/ "./client/components/Containers/ActionsContainer.tsx":
 /*!***********************************************************!*\
   !*** ./client/components/Containers/ActionsContainer.tsx ***!
@@ -296,7 +236,6 @@ __webpack_require__.r(__webpack_exports__);
 var ActionsContainer = function ActionsContainer(props) {
   var _a = Object(_hooks_useFirebaseAuth__WEBPACK_IMPORTED_MODULE_7__["default"])(props.firebase),
       isLoggedIn = _a.isLoggedIn,
-      user = _a.user,
       firebaseLogin = _a.firebaseLogin,
       firebaseLogout = _a.firebaseLogout;
 
@@ -440,6 +379,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _redux_actions_modalActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../redux/actions/modalActions */ "./client/redux/actions/modalActions.tsx");
 /* harmony import */ var _redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../redux/actions/taskActions */ "./client/redux/actions/taskActions.tsx");
+/* harmony import */ var _hooks_useDebouncer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../hooks/useDebouncer */ "./client/hooks/useDebouncer.tsx");
+/* harmony import */ var _hooks_useApiAsync__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../hooks/useApiAsync */ "./client/hooks/useApiAsync.tsx");
+
+
 
 
 
@@ -449,6 +392,10 @@ __webpack_require__.r(__webpack_exports__);
 
 var TodoContainer = function TodoContainer(props) {
   //const tasks = useSelector(state => state.tasks.list)
+  var updateDbTasks = Object(_hooks_useApiAsync__WEBPACK_IMPORTED_MODULE_7__["default"])().updateDbTasks; // firebase function:api processor
+
+  var updateDBAsyncDebouncer = Object(_hooks_useDebouncer__WEBPACK_IMPORTED_MODULE_6__["default"])(updateDbTasks, 30000); // 2 min debouncer ¿
+
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Container"], {
     maxWidth: "md"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], {
@@ -461,16 +408,35 @@ var TodoContainer = function TodoContainer(props) {
       task: task,
       id: index,
       key: index,
-      onEdit: props.onEdit,
-      onProgressChange: props.onProgressChange,
-      onComplete: props.onComplete
+      onEdit: function onEdit(id, task) {
+        props.onEdit(id, task);
+        updateDBAsyncDebouncer({
+          uid: props.uid,
+          tasks: props.tasks.list
+        });
+      },
+      onProgressChange: function onProgressChange(id, value) {
+        props.onProgressChange(id, value);
+        updateDBAsyncDebouncer({
+          uid: props.uid,
+          tasks: props.tasks.list
+        });
+      },
+      onComplete: function onComplete(id) {
+        props.onComplete(id);
+        updateDBAsyncDebouncer({
+          uid: props.uid,
+          tasks: props.tasks.list
+        });
+      }
     });else return null;
   })));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    tasks: state.tasks
+    tasks: state.tasks,
+    uid: state.utility.user.uid
   };
 };
 
@@ -871,6 +837,46 @@ var marks = [{
 
 /***/ }),
 
+/***/ "./client/hooks/useApiAsync.tsx":
+/*!**************************************!*\
+  !*** ./client/hooks/useApiAsync.tsx ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var updateDbAsync = function updateDbAsync(param) {
+    var body = {
+      "uid": param.uid,
+      "data": {
+        "tasks": param.tasks
+      }
+    };
+    console.log("updateDb async request made");
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://us-central1-todo-61039.cloudfunctions.net/api/setTasks", body); // firebase functions: api
+  };
+
+  var fetchDbTasksAsync = function fetchDbTasksAsync(uid) {
+    var body = {
+      "uid": uid
+    };
+    console.log("fetchDb async request made");
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("https://us-central1-todo-61039.cloudfunctions.net/api/getTasks", body); // firebase functions: api
+  };
+
+  return {
+    fetchDbTasks: fetchDbTasksAsync,
+    updateDbTasks: updateDbAsync
+  };
+});
+
+/***/ }),
+
 /***/ "./client/hooks/useDebouncer.tsx":
 /*!***************************************!*\
   !*** ./client/hooks/useDebouncer.tsx ***!
@@ -945,9 +951,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase/app */ "./node_modules/firebase/app/dist/index.cjs.js");
 /* harmony import */ var firebase_app__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(firebase_app__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/actions/taskActions */ "./client/redux/actions/taskActions.tsx");
+/* harmony import */ var _redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../redux/actions/taskActions */ "./client/redux/actions/taskActions.tsx");
+/* harmony import */ var _redux_actions_userActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/actions/userActions */ "./client/redux/actions/userActions.tsx");
+/* harmony import */ var _useApiAsync__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./useApiAsync */ "./client/hooks/useApiAsync.tsx");
 var __awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
   function adopt(value) {
     return value instanceof P ? value : new P(function (resolve) {
@@ -1097,34 +1103,26 @@ var __generator = undefined && undefined.__generator || function (thisArg, body)
 
 
 
-var onLoginAsync = function onLoginAsync(uid) {
-  var fetchTasks = function fetchTasks(uid) {
-    var body = {
-      "uid": uid
-    };
-    return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("https://us-central1-todo-61039.cloudfunctions.net/api/getTasks", body); // firebase function
-  };
-
-  return function (dispatch) {
-    return fetchTasks(uid).then(function (res) {
-      console.log(res.data);
-      if (res.data.ok) dispatch(Object(_redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_4__["setTasks"])(res.data.tasks)); // dispatch the set tasks event
-    })["catch"](function (err) {
-      return console.error(err);
-    });
-  };
-};
-
 /* harmony default export */ __webpack_exports__["default"] = (function (firebaseApp) {
   var _a = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       isLoggedIn = _a[0],
       setLoggedIn = _a[1];
 
-  var _b = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(undefined),
-      user = _b[0],
-      setUser = _b[1];
+  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])(); // redux store dispatch accessor
 
-  var dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  var fetchDbTasks = Object(_useApiAsync__WEBPACK_IMPORTED_MODULE_5__["default"])().fetchDbTasks; // Async action to be processed by redux-thunk middleware
+
+  var onLoginAsync = function onLoginAsync(uid) {
+    return function (dispatch) {
+      return fetchDbTasks(uid).then(function (res) {
+        if (res.data.ok) dispatch(Object(_redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_3__["setTasks"])(res.data.tasks)); // dispatch the set tasks event
+        else console.error(res.data.msg);
+      })["catch"](function (err) {
+        return console.error(err);
+      });
+    };
+  };
+
   var provider = new firebase_app__WEBPACK_IMPORTED_MODULE_1__["auth"].GoogleAuthProvider(); // Google Sign-in
   // Handle third party login
 
@@ -1133,7 +1131,7 @@ var onLoginAsync = function onLoginAsync(uid) {
       return __generator(this, function (_a) {
         firebaseApp.auth().signInWithPopup(provider).then(function (res) {
           setLoggedIn(true);
-          setUser(res.user);
+          dispatch(Object(_redux_actions_userActions__WEBPACK_IMPORTED_MODULE_4__["setUser"])(res.additionalUserInfo.profile, res.user.uid));
           console.log(res);
           dispatch(onLoginAsync(res.user.uid));
         })["catch"](function (err) {
@@ -1154,8 +1152,8 @@ var onLoginAsync = function onLoginAsync(uid) {
         firebaseApp.auth().signOut().then(function () {
           setLoggedIn(false); // toggle user login
 
-          setUser(undefined);
-          dispatch(Object(_redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_4__["setTasks"])([])); // clear task list
+          Object(_redux_actions_userActions__WEBPACK_IMPORTED_MODULE_4__["setUser"])({}, "");
+          dispatch(Object(_redux_actions_taskActions__WEBPACK_IMPORTED_MODULE_3__["setTasks"])([])); // clear task list
         })["catch"](function (err) {
           return console.error(err);
         });
@@ -1168,7 +1166,6 @@ var onLoginAsync = function onLoginAsync(uid) {
 
   return {
     isLoggedIn: isLoggedIn,
-    user: user,
     firebaseLogin: firebaseLogin,
     firebaseLogout: firebaseLogout
   };
@@ -1334,7 +1331,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeModal", function() { return closeModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openEditModal", function() { return openEditModal; });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./client/redux/actions/types.tsx");
-/* harmony import */ var _Schema_defaults__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Schema/defaults */ "./client/Schema/defaults.tsx");
+/* harmony import */ var _schema_defaults__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../schema/defaults */ "./client/schema/defaults.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -1368,7 +1365,7 @@ var openEditModal = function openEditModal(id, task) {
     type: _types__WEBPACK_IMPORTED_MODULE_0__["default"].MODAL,
     open: true,
     index: id,
-    task: __assign(__assign({}, _Schema_defaults__WEBPACK_IMPORTED_MODULE_1__["defaultTask"]), task)
+    task: __assign(__assign({}, _schema_defaults__WEBPACK_IMPORTED_MODULE_1__["defaultTask"]), task)
   };
 };
 
@@ -1388,7 +1385,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "completeTask", function() { return completeTask; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filterTasksSearch", function() { return filterTasksSearch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTasks", function() { return setTasks; });
-/* harmony import */ var _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Schema/defaults */ "./client/Schema/defaults.tsx");
+/* harmony import */ var _schema_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../schema/defaults */ "./client/schema/defaults.tsx");
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./types */ "./client/redux/actions/types.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
@@ -1415,7 +1412,7 @@ var addTask = function addTask(index, task) {
 
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_1__["default"].TASK,
-    task: __assign(__assign({}, _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__["defaultTask"]), task),
+    task: __assign(__assign({}, _schema_defaults__WEBPACK_IMPORTED_MODULE_0__["defaultTask"]), task),
     index: index
   };
 };
@@ -1448,6 +1445,7 @@ var filterTasksSearch = function filterTasksSearch(on, match) {
   };
 };
 var setTasks = function setTasks(tasks) {
+  console.log("setTasks");
   return {
     type: _types__WEBPACK_IMPORTED_MODULE_1__["default"].SET_TASKS,
     tasks: tasks
@@ -1474,7 +1472,8 @@ __webpack_require__.r(__webpack_exports__);
   COMPLETE_TASK: "complete",
   SEARCH_FILTER: "searchFilter",
   TOGGLE_SEARCH_FILTER: "toggleSearchFilter",
-  SET_TASKS: "setTasks"
+  SET_TASKS: "setTasks",
+  SET_USER: "setUser"
 });
 
 /***/ }),
@@ -1483,7 +1482,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ./client/redux/actions/userActions.tsx ***!
   \**********************************************/
-/*! exports provided: openActions, closeActions, actionSelect */
+/*! exports provided: openActions, closeActions, actionSelect, setUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1491,6 +1490,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openActions", function() { return openActions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeActions", function() { return closeActions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actionSelect", function() { return actionSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUser", function() { return setUser; });
 /* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types */ "./client/redux/actions/types.tsx");
 
 var openActions = {
@@ -1509,6 +1509,13 @@ var actionSelect = function actionSelect(type) {
     type: type
   };
 };
+var setUser = function setUser(details, uid) {
+  return {
+    type: _types__WEBPACK_IMPORTED_MODULE_0__["default"].SET_USER,
+    details: details,
+    uid: uid
+  };
+};
 
 /***/ }),
 
@@ -1524,13 +1531,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _reducers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./reducers/index */ "./client/redux/reducers/index.tsx");
-/* harmony import */ var _Schema_defaults__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Schema/defaults */ "./client/Schema/defaults.tsx");
+/* harmony import */ var _schema_defaults__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../schema/defaults */ "./client/schema/defaults.tsx");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 
 
 
 
-var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_index__WEBPACK_IMPORTED_MODULE_1__["default"], _Schema_defaults__WEBPACK_IMPORTED_MODULE_2__["initialState"], Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"]));
+var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_index__WEBPACK_IMPORTED_MODULE_1__["default"], _schema_defaults__WEBPACK_IMPORTED_MODULE_2__["initialState"], Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -1565,7 +1572,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Schema/defaults */ "./client/Schema/defaults.tsx");
+/* harmony import */ var _schema_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../schema/defaults */ "./client/schema/defaults.tsx");
 /* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/types */ "./client/redux/actions/types.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
@@ -1601,7 +1608,7 @@ var __spreadArrays = undefined && undefined.__spreadArrays || function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (function (state, action) {
   if (state === void 0) {
-    state = _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__["initialState"].tasks;
+    state = _schema_defaults__WEBPACK_IMPORTED_MODULE_0__["initialState"].tasks;
   }
 
   switch (action.type) {
@@ -1610,7 +1617,7 @@ var __spreadArrays = undefined && undefined.__spreadArrays || function () {
         // ADD & EDIT TASKS
         if (typeof action.task === "undefined") return state; // error
 
-        var task = Object.assign({}, _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__["defaultTask"], action.task); // Set filter status if appropriate
+        var task = Object.assign({}, _schema_defaults__WEBPACK_IMPORTED_MODULE_0__["defaultTask"], action.task); // Set filter status if appropriate
 
         var regex = new RegExp(state.filter.search.match, "i");
         if (state.filter.search.on && regex.test(task.title)) task.filter = true;
@@ -1693,7 +1700,7 @@ var __spreadArrays = undefined && undefined.__spreadArrays || function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../Schema/defaults */ "./client/Schema/defaults.tsx");
+/* harmony import */ var _schema_defaults__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../schema/defaults */ "./client/schema/defaults.tsx");
 /* harmony import */ var _actions_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/types */ "./client/redux/actions/types.tsx");
 var __assign = undefined && undefined.__assign || function () {
   __assign = Object.assign || function (t) {
@@ -1715,7 +1722,7 @@ var __assign = undefined && undefined.__assign || function () {
 
 /* harmony default export */ __webpack_exports__["default"] = (function (state, action) {
   if (state === void 0) {
-    state = _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__["initialState"].utility;
+    state = _schema_defaults__WEBPACK_IMPORTED_MODULE_0__["initialState"].utility;
   }
 
   switch (action.type) {
@@ -1734,7 +1741,7 @@ var __assign = undefined && undefined.__assign || function () {
         } else {
           // set for adding task
           nstate.modal.index = -1;
-          nstate.modal.task = Object.assign({}, _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__["defaultTask"]);
+          nstate.modal.task = Object.assign({}, _schema_defaults__WEBPACK_IMPORTED_MODULE_0__["defaultTask"]);
         }
 
         return __assign(__assign({}, state), nstate);
@@ -1750,10 +1757,85 @@ var __assign = undefined && undefined.__assign || function () {
         return __assign(__assign({}, state), nstate);
       }
 
+    case _actions_types__WEBPACK_IMPORTED_MODULE_1__["default"].SET_USER:
+      {
+        if (typeof action.details === "undefined" || typeof action.uid === "undefined") return state;
+
+        var nstate = __assign({}, state);
+
+        nstate.user.details = __assign({}, action.details);
+        nstate.user.uid = action.uid;
+        return __assign({}, nstate);
+      }
+
     default:
       return state;
   }
 });
+
+/***/ }),
+
+/***/ "./client/schema/defaults.tsx":
+/*!************************************!*\
+  !*** ./client/schema/defaults.tsx ***!
+  \************************************/
+/*! exports provided: defaultTask, initialState */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "defaultTask", function() { return defaultTask; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialState", function() { return initialState; });
+var defaultTask = {
+  "title": "",
+  "description": "",
+  "tags": [],
+  "progress": 0,
+  "complete": false,
+  "index": undefined,
+  "filter": false
+};
+var initialState = {
+  tasks: {
+    "list": [{
+      "title": "Do homework",
+      "description": "This is a lengthy description.",
+      "tags": ["homework"],
+      "progress": 2,
+      "complete": false
+    }, {
+      "title": "Do homework",
+      "description": "This is a lengthy description.",
+      "tags": ["homework", "adfdf", "asdfsdaf", "asfdsdaf", "asdfsdaf", "asfsadf"],
+      "progress": 0,
+      "complete": false
+    }],
+    filter: {
+      search: {
+        on: false,
+        match: ""
+      }
+    }
+  },
+  utility: {
+    modal: {
+      open: false,
+      task: defaultTask,
+      index: -1
+    },
+    actions: {
+      open: false
+    },
+    alert: {
+      open: false,
+      type: "success"
+    },
+    user: {
+      details: {},
+      uid: "test"
+    }
+  }
+};
 
 /***/ }),
 

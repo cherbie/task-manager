@@ -3,9 +3,10 @@ import { Paper, Container, Badge } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import TaskDetailedView from "../Presentation/TaskDetailedView"
 import { connect } from "react-redux"
-import { ITask, IReduxState } from "../../Schema/state"
+import { ITask, IReduxState } from "../../schema/state"
 import { closeModal } from "../../redux/actions/modalActions"
 import { addTask } from "../../redux/actions/taskActions"
+import useApiAsync from "../../hooks/useApiAsync"
 
 interface ITaskDetailedViewContainer {
   onExit: any;
@@ -16,12 +17,21 @@ interface ITaskDetailedViewContainer {
 
 const TaskDetailedViewContainer = (props: ITaskDetailedViewContainer) => {
   const classes = useStyle()
+  const { updateDbTasks } = useApiAsync() // no need to debounce
 
   return (
     <Fragment>
       <Container className={classes.container} maxWidth="sm">
         <Paper className={classes.texture} variant="outlined" elevation={5}>
-          <TaskDetailedView id={props.utility.modal.index} task={props.utility.modal.task} onSubmit={props.onSubmit} onExit={props.onExit} />
+          <TaskDetailedView
+            id={props.utility.modal.index} 
+            task={props.utility.modal.task} 
+            onSubmit={(id, task) => {
+              props.onSubmit(id, task)
+              updateDbTasks({uid: props.utility.user.uid, tasks: [...props.tasks.list, task]})
+            }}
+            onExit={props.onExit}
+          />
         </Paper>
       </Container>
     </Fragment>

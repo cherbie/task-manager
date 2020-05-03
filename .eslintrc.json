@@ -13,7 +13,7 @@
     "sourceType": "module",
     "ecmaVersion": 2020
   },
-  "ignorePatterns": ["node_modules/"],
+  "ignorePatterns": ["node_modules/", "functions/"],
   "rules": {
     "react/display-name": "off",
     "no-unused-vars": "warn",

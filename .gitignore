@@ -11,5 +11,6 @@ yarn.lock
 .firebase
 .firebaserc
 .service_account_key.json
+*.log
 
 # System Wide

@@ -1,4 +1,4 @@
-import { ITaskState, ITask } from "../../schema/state"
+import { ITaskState } from "../../schema/state"
 import { initialState, defaultTask } from "../../schema/defaults"
 import TYPES from "../actions/types"
 

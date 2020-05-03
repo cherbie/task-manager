@@ -13,4 +13,4 @@ const firebaseConfig = {
   measurementId: "G-Q5TLW2MZLP"
 }
 
-export default () => firebase.initializeApp(firebaseConfig, "Task Tracker")
+export default () => firebase.initializeApp(firebaseConfig, "Task Tracker") // firebase/app instance creation

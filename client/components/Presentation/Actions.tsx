@@ -1,6 +1,5 @@
 import React from "react"
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@material-ui/lab"
-import SaveIcon from "@material-ui/icons/Save"
 import { makeStyles } from "@material-ui/core/styles"
 
 interface IActions {
@@ -40,6 +39,7 @@ export default (props: IActions) => {
   )
 }
 
+// -- Inline Styling --
 const useStyle = makeStyles((theme) => ({
   container: {
     position: 'fixed',

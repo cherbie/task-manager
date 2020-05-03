@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import axios from "axios"
 import * as firebase from "firebase/app"
 import { useDispatch } from "react-redux"
 import { setTasks } from "../redux/actions/taskActions"
@@ -9,7 +8,7 @@ import useApiAsync from "./useApiAsync"
 export default (firebaseApp) => {
   const [isLoggedIn, setLoggedIn] = useState(false)
   const dispatch = useDispatch() // redux store dispatch accessor
-  const { fetchDbTasks } = useApiAsync()
+  const { fetchDbTasks, updateDbTasks } = useApiAsync()
 
   // Async action to be processed by redux-thunk middleware
   const onLoginAsync = (uid) => {
@@ -23,7 +22,7 @@ export default (firebaseApp) => {
     }
   }
 
-  let provider = new firebase.auth.GoogleAuthProvider() // Google Sign-in
+  let provider = new firebase.auth.GoogleAuthProvider() // provider --> Google Sign-in
 
   // Handle third party login
   const firebaseLogin = async () => {
@@ -39,7 +38,8 @@ export default (firebaseApp) => {
   }
 
   // handle user logout
-  const firebaseLogout = async () => {
+  const firebaseLogout = async (uid, tasks) => {
+    updateDbTasks({uid: uid, tasks: tasks}).then((value) => console.log("saved progress.")).catch(err => console.error("error saving progress"))
     firebaseApp.auth().signOut()
       .then(() => {
         setLoggedIn(false) // toggle user login

@@ -1,5 +1,6 @@
 /* Definition for all reducer action types */
 
+// ENUM simulation
 export default {
   MODAL: "modal",
   ACTIONS: "actions",

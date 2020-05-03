@@ -1,6 +1,6 @@
 import { defaultTask } from "../../schema/defaults"
 import TYPES from "./types"
-import { ITask, ITaskState } from "../../schema/state"
+import { ITask } from "../../schema/state"
 
 export const addTask = (index: number = -1, task: ITask) => ({
   type: TYPES.TASK,

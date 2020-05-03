@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, Container, OutlinedInput } from "@material-ui/core"
+import { Container, OutlinedInput } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import useDebouncer from "../../hooks/useDebouncer"
 import { connect } from "react-redux"
@@ -11,19 +11,19 @@ interface ISearchBar {
 
 const SearchBar = (props: ISearchBar) => {
   const classes = useStyles();
-  const debounceSearch = useDebouncer((str: string) => props.onSearch(str), 200)
+  const debounceSearch = useDebouncer((str: string) => props.onSearch(str), 200) // debounce search bar onChange requests
 
   return (
     <Container className={classes.container}>
       <OutlinedInput id="todo-name-search" placeholder="Search"
-        onChange={(e) => {
-          debounceSearch(e.target.value)
-        }}
-        fullWidth={true} />
+        onChange={(e) => debounceSearch(e.target.value)}
+        fullWidth={true}
+      />
     </Container>
   )
 }
 
+// class styles creation through material-ui hook
 const useStyles = makeStyles({
   container: {
     maxWidth: 600

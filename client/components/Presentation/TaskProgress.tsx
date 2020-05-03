@@ -32,7 +32,6 @@ export default (props: ITaskProgress) => {
 }
 
 // Constants
-
 const marks = [{
   value:0,
   label:"0"

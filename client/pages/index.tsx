@@ -5,7 +5,7 @@ import App from "./App"
 import useFirebase from "../hooks/useFirebase"
 
 export default () => {
-  const firebaseApp = useFirebase()
+  const firebaseApp = useFirebase() // set up firebase/app instance
 
   return (
     <Provider store={store}>

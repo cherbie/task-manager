@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import UserActions from "../Presentation/Actions"
 import { connect } from "react-redux"
 import { IReduxState } from "../../schema/state"
@@ -17,7 +17,7 @@ interface IActionsContainer {
 }
 
 const ActionsContainer = (props: IActionsContainer) => {
-  const { isLoggedIn, firebaseLogin, firebaseLogout } = useFirebaseAuth(props.firebase)
+  const { isLoggedIn, firebaseLogin, firebaseLogout } = useFirebaseAuth(props.firebase) // google authentication using firebase.auth
 
   return (
     <div>
@@ -25,7 +25,8 @@ const ActionsContainer = (props: IActionsContainer) => {
         actionIcons={[<AddCircleIcon />, isLoggedIn ? <ExitToAppIcon /> : <LockOpenIcon />]}
         tooltips={["Add", isLoggedIn ? "Logout" : "Login"]} open={props.open}
         onActionSelect={[props.actionsOnAdd, isLoggedIn ? firebaseLogout : firebaseLogin]}
-        onOpen={props.onOpen} onClose={props.onClose}/>
+        onOpen={props.onOpen} onClose={props.onClose}
+      />
     </div>
   )
 }

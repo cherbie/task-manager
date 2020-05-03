@@ -1,4 +1,3 @@
-import { ITask } from "../../schema/state"
 import TYPES from "./types"
 
 export const openActions = ({

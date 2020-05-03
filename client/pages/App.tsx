@@ -1,15 +1,14 @@
 import React, { Suspense, Fragment } from "react"
 import { Box, Container, Modal, Button, CircularProgress } from "@material-ui/core"
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import { makeStyles } from "@material-ui/core/styles"
 import SearchBarContainer from "../components/Containers/SearchBarContainer"
 import TodoContainer from "../components/Containers/TodoContainer"
 import ActionsContainer from "../components/Containers/ActionsContainer"
 import { connect } from "react-redux"
-import { IReduxState, ITaskState, IUtilityState } from "../schema/state"
+import { ITaskState, IUtilityState } from "../schema/state"
 import { openModal, closeModal } from "../redux/actions/modalActions"
 
-// Code Splitting
+// Lazy loading
 const TaskDetailedViewContainer = React.lazy(() => import(
   /* webpackChunkName: "modal" */
   "../components/Containers/TaskDetailedViewContainer"
@@ -41,9 +40,9 @@ const App = (props: IApp) => {
         </Box>
         <Modal open={props.utility.modal.open}>
           <Suspense fallback={<CircularProgress color="secondary" />}>
-            <>
+            <div>
               <TaskDetailedViewContainer />
-            </>
+            </div>
           </Suspense>
         </Modal>
       </Box>
@@ -51,6 +50,8 @@ const App = (props: IApp) => {
   )
 }
 
+
+// -- Inline styling --
 const useStyle = makeStyles(() => ({
   footer: {
     position: "fixed",

@@ -1,14 +1,18 @@
 const path = require("path")
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
+
 
 module.exports = {
-  mode: "development",
   entry: path.resolve(__dirname, "client", "index.tsx"),
   output: {
-    filename: "[id].bundle.js",
+    filename: "[name].bundle.js",
     chunkFilename: "[id].bundle.js",
     publicPath: "/assets/",
     path: path.resolve(__dirname, "public/assets"),
     crossOriginLoading: "anonymous"
+  },
+  resolve: {
+    extensions: [".js", ".json", ".ts", ".tsx"]
   },
   module: {
     rules: [
@@ -19,7 +23,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: [
+          "style-loader",
+          "css-loader"
+        ]
       },
       {
         test: /\.tsx?$/,
@@ -35,18 +42,6 @@ module.exports = {
       }
     ]
   },
-  devtool: "cheap-module-source-map",
-  resolve: {
-    extensions: [".js", ".json", ".ts", ".tsx"]
-  },
-  devServer: {
-    contentBase: [path.resolve(__dirname, "public"), path.resolve(__dirname, "client")],
-    port: 9000,
-    open: true,
-    hot: true,
-    watchContentBase: true,
-    compress: true,
-    index: "index.html"
-  }
+  plugins: [new CleanWebpackPlugin()]
 }
 

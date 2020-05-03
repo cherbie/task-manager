@@ -1,5 +1,5 @@
 import React from "react"
-import { ListItem, Box, Container, Typography, IconButton, Badge, Slider, Chip, Grid } from "@material-ui/core"
+import { Box, Badge, Grid } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import TaskProgress from "./TaskProgress"
 import EditItem from "../IconButtons/EditItem"
@@ -26,7 +26,7 @@ export default (props: ITaskBrief) => {
           <Grid container alignItems="center" justify="center" spacing={1}>
             <Grid item xs={12} sm={6} md={3}>
               <TaskColContainer flexGrow={1} flexBasis={0}>
-                <Box component="div" textAlign="center" fontWeight="fontWeightMedium" fontSize="h6.fontSize" textOverflow="ellipsis" overflow="hidden">
+                <Box textAlign="center" fontWeight="fontWeightMedium" fontSize="h6.fontSize" overflow="visible" whiteSpace="normal">
                   {props.task.title ? props.task.title : "..."}
                 </Box>
               </TaskColContainer>

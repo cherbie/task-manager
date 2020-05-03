@@ -13,16 +13,16 @@ export const defaultTask: ITask = {
 export const initialState: IReduxState = {
   tasks: {
     "list": [{
-      "title": "Do homework",
-      "description": "This is a lengthy description.",
-      "tags": ["homework"],
-      "progress": 2,
+      "title": "Take the dogs for a work",
+      "description": "Sign in with google to personalise your experience.",
+      "tags": ["dogs", "excercise"],
+      "progress": 0,
       "complete": false
     },
     {
-      "title": "Do homework",
-      "description": "This is a lengthy description.",
-      "tags": ["homework", "adfdf", "asdfsdaf", "asfdsdaf", "asdfsdaf", "asfsadf"],
+      "title": "This is another",
+      "description": "Sign in with google to personalise your experience.",
+      "tags": ["reactjs", "expressjs", "firebase"],
       "progress": 0,
       "complete": false
     }],

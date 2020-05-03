@@ -17,7 +17,7 @@ interface ITaskDetailedViewContainer {
 
 const TaskDetailedViewContainer = (props: ITaskDetailedViewContainer) => {
   const classes = useStyle()
-  const { updateDbTasks } = useApiAsync() // no need to debounce
+  const { updateDbTasks } = useApiAsync() // no need to debounce request
 
   return (
     <Fragment>
@@ -38,6 +38,7 @@ const TaskDetailedViewContainer = (props: ITaskDetailedViewContainer) => {
   )
 }
 
+// -- Inline CSS --
 const useStyle = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -64,4 +65,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskDetailedViewContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TaskDetailedViewContainer)

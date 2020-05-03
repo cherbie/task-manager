@@ -1,12 +1,10 @@
-import React, { useEffect } from "react"
-import { Container, List, Typography, Box } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import React from "react"
+import { Container, Box } from "@material-ui/core"
 import TaskBrief from "../Presentation/TaskBrief"
-import { ITaskState, ITask, IReduxState, IUtilityState } from '../../schema/state'
-import { connect, useSelector, batch } from "react-redux"
+import { ITaskState, ITask, IReduxState } from '../../schema/state'
+import { connect } from "react-redux"
 import { openEditModal } from "../../redux/actions/modalActions"
 import { updateProgress, completeTask } from "../../redux/actions/taskActions"
-import axios from "axios"
 import useDebouncer from "../../hooks/useDebouncer"
 import useApiAsync from "../../hooks/useApiAsync"
 
@@ -19,9 +17,8 @@ interface ITodoContainer {
 }
 
 const TodoContainer = (props: ITodoContainer) => {
-  //const tasks = useSelector(state => state.tasks.list)
   const { updateDbTasks } = useApiAsync() // firebase function:api processor
-  const updateDBAsyncDebouncer = useDebouncer(updateDbTasks, 30000); // 2 min debouncer ¿
+  const updateDBAsyncDebouncer = useDebouncer(updateDbTasks, 30000); // 30 second debouncer ¿
 
   return (
     <Container maxWidth="md">

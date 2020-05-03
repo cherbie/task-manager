@@ -1,9 +1,10 @@
 import axios from "axios"
-import { ITask } from "../schema/state"
 
 export default () => {
-
-  const updateDbAsync = (param: {uid: string, tasks: any[]}) => {
+  /**
+   * Make POST request to firebasae function "/api/getTasks" (async)
+   */
+  const updateDbTasks = (param: {uid: string, tasks: any[]}) => {
     let body = {
       "uid": param.uid,
       "data": {
@@ -14,7 +15,10 @@ export default () => {
     return axios.post("https://us-central1-todo-61039.cloudfunctions.net/api/setTasks", body) // firebase functions: api
   }
 
-  const fetchDbTasksAsync = (uid: string) => {
+  /**
+   * Make POST request to firebase function "/api/setTasks"
+   */
+  const fetchDbTasks = (uid: string) => {
     let body = {
       "uid": uid
     }
@@ -22,5 +26,5 @@ export default () => {
     return axios.post("https://us-central1-todo-61039.cloudfunctions.net/api/getTasks", body) // firebase functions: api
   }
 
-  return { fetchDbTasks: fetchDbTasksAsync, updateDbTasks: updateDbAsync }
+  return { fetchDbTasks, updateDbTasks }
 }

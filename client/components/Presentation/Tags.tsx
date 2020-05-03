@@ -14,21 +14,21 @@ export default (props: ITags) => {
 
   useEffect(() => {
     let componentList = null;
-    if(props.tags.length === 0)
-      componentList = <Typography>...</Typography>
-    else
+    if(props.tags.length === 0) {
+      componentList = <Typography>...</Typography> // display placeholder
+    } else {
       componentList = props.tags.map((label, index) => (
         <Box {...props.container} component="span" key={index}>
           <Chip onDelete={props.onDelete ? () => props.onDelete(index) : null} color={props.elementColor} label={label} key={index} variant="outlined" size="small" />
         </Box>
       ))
-    
-    setTagComponents(componentList)
+    }
+    setTagComponents(componentList) // set tag component list
   }, [props.tags])
   
   return (
-    <>
+    <React.Fragment>
       {tagComponents}
-    </>
+    </React.Fragment>
   )
 }

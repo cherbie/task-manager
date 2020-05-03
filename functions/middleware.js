@@ -1,5 +1,6 @@
 const express = require('express')
 const admin = require('firebase-admin')
+const cors = require('cors')
 
 // Fetch Private Admin Key
 var serviceAccount = require("./.service_account_key.json");
@@ -34,6 +35,10 @@ const setDbMiddleware = (req, res, next) => {
 
 module.exports = (app) => {
   app.use(express.json()) // parse text/json request body
+
+  // Automatically allow cross-origin requests
+  app.use(cors({origin: true}))
+
 
   app.use(setUidMiddleware) // check for uid in request body
   app.use(setDbMiddleware) // sets firestore database object

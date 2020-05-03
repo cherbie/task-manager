@@ -1,0 +1,106 @@
+[debug] [2020-05-03T08:46:19.758Z] ----------------------------------------------------------------------
+[debug] [2020-05-03T08:46:19.759Z] Command:       /usr/local/Cellar/node/13.13.0_1/bin/node /usr/local/bin/firebase serve --only functions
+[debug] [2020-05-03T08:46:19.760Z] CLI Version:   8.2.0
+[debug] [2020-05-03T08:46:19.760Z] Platform:      darwin
+[debug] [2020-05-03T08:46:19.760Z] Node Version:  v13.13.0
+[debug] [2020-05-03T08:46:19.761Z] Time:          Sun May 03 2020 16:46:19 GMT+0800 (Australian Western Standard Time)
+[debug] [2020-05-03T08:46:19.761Z] ----------------------------------------------------------------------
+[debug] [2020-05-03T08:46:19.761Z] 
+[debug] [2020-05-03T08:46:19.772Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-05-03T08:46:19.772Z] > authorizing via signed-in user
+[debug] [2020-05-03T08:46:19.772Z] [iam] checking project todo-61039 for permissions ["firebase.projects.get"]
+[debug] [2020-05-03T08:46:19.775Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/todo-61039:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-05-03T08:46:21.446Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 03 May 2020 08:46:21 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=1172","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-05-03T08:46:21.448Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/todo-61039  
+ 
+[debug] [2020-05-03T08:46:22.312Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 03 May 2020 08:46:22 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "13"
+[info] ✔  functions: functions emulator started at http://localhost:5000
+[info] i  functions: Watching "/Users/herbsca/OneDrive/development/todo/functions" for Cloud Functions...
+[debug] [2020-05-03T08:46:22.341Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-05-03T08:46:22.341Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-05-03T08:46:22.342Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-05-03T08:46:22.342Z] [worker-~diagnostic~-43a03870-8fc6-462c-a286-340f72fd057d]: Assigning socketPath: /var/folders/fd/ph81y6rj11g3w2plvgphkyr00000gn/T/fire_emu_5132.sock 
+[debug] [2020-05-03T08:46:22.342Z] [worker-~diagnostic~-43a03870-8fc6-462c-a286-340f72fd057d]: BUSY 
+[debug] [2020-05-03T08:46:22.592Z] [runtime-status] [5132] Functions runtime initialized. {"cwd":"/Users/herbsca/OneDrive/development/todo/functions","node_version":"13.13.0"} 
+[debug] [2020-05-03T08:46:22.592Z] [runtime-status] [5132] Disabled runtime features: undefined 
+[debug] [2020-05-03T08:46:22.596Z] [runtime-status] [5132] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-05-03T08:46:22.598Z] [runtime-status] [5132] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:22.600Z] [runtime-status] [5132] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-05-03T08:46:22.671Z] [runtime-status] [5132] Checked functions.config() {"config":{}} 
+[debug] [2020-05-03T08:46:22.672Z] [runtime-status] [5132] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:22.673Z] [runtime-status] [5132] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-05-03T08:46:22.673Z] [runtime-status] [5132] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:22.674Z] [runtime-status] [5132] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"}} 
+[warn] ⚠  ReferenceError: requrie is not defined
+    at Object.<anonymous> (/Users/herbsca/OneDrive/development/todo/functions/middleware.js:3:14)
+    at Module._compile (internal/modules/cjs/loader.js:1123:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1143:10)
+    at Module.load (internal/modules/cjs/loader.js:972:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:872:14)
+    at Module.require (internal/modules/cjs/loader.js:1012:19)
+    at require (internal/modules/cjs/helpers.js:72:18)
+    at Object.<anonymous> (/Users/herbsca/OneDrive/development/todo/functions/index.js:6:20)
+    at Module._compile (internal/modules/cjs/loader.js:1123:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1143:10)
+[warn] ⚠  We were unable to load your functions code. (see above)
+[debug] [2020-05-03T08:46:22.858Z] [worker-~diagnostic~-43a03870-8fc6-462c-a286-340f72fd057d]: exited 
+[debug] [2020-05-03T08:46:22.858Z] [worker-~diagnostic~-43a03870-8fc6-462c-a286-340f72fd057d]: FINISHED 
+[debug] [2020-05-03T08:46:31.463Z] File /Users/herbsca/OneDrive/development/todo/functions/middleware.js changed, reloading triggers 
+[debug] [2020-05-03T08:46:32.334Z] File /Users/herbsca/OneDrive/development/todo/functions/middleware.js changed, reloading triggers 
+[debug] [2020-05-03T08:46:32.435Z] File /Users/herbsca/OneDrive/development/todo/functions/middleware.js changed, reloading triggers 
+[debug] [2020-05-03T08:46:33.441Z] [worker-pool] Cleaned up workers for ~diagnostic~: 1 --> 0 
+[debug] [2020-05-03T08:46:33.445Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-05-03T08:46:33.446Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-05-03T08:46:33.446Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-05-03T08:46:33.446Z] [worker-~diagnostic~-20fd6951-1df5-4898-ac1c-b075abfbcf2b]: Assigning socketPath: /var/folders/fd/ph81y6rj11g3w2plvgphkyr00000gn/T/fire_emu_5142.sock 
+[debug] [2020-05-03T08:46:33.446Z] [worker-~diagnostic~-20fd6951-1df5-4898-ac1c-b075abfbcf2b]: BUSY 
+[debug] [2020-05-03T08:46:33.726Z] [runtime-status] [5142] Functions runtime initialized. {"cwd":"/Users/herbsca/OneDrive/development/todo/functions","node_version":"13.13.0"} 
+[debug] [2020-05-03T08:46:33.727Z] [runtime-status] [5142] Disabled runtime features: undefined 
+[debug] [2020-05-03T08:46:33.728Z] [runtime-status] [5142] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-05-03T08:46:33.729Z] [runtime-status] [5142] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:33.731Z] [runtime-status] [5142] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-05-03T08:46:33.760Z] [runtime-status] [5142] Checked functions.config() {"config":{}} 
+[debug] [2020-05-03T08:46:33.761Z] [runtime-status] [5142] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:33.761Z] [runtime-status] [5142] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-05-03T08:46:33.762Z] [runtime-status] [5142] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:33.762Z] [runtime-status] [5142] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-05-03T08:46:33.896Z] [runtime-status] [5142] initializeApp(DEFAULT) {"databaseURL":"https://todo-61039.firebaseio.com","storageBucket":"todo-61039.appspot.com","projectId":"todo-61039","credential":{"implicit":false,"projectId":"todo-61039","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCOx3oYAAzhLLIW\nZAU+ljCrsL+Gs9zjMhD3qT4AgsvPXZ75A05oPzlXRx4BhTCipRU04kcT4sFMatHN\nj0x67ANrN2fMyZafv6BX6CbgXMegD/mkE9IhCUpqxPqI2XB8oFrm+RTFqfel7sIp\nug5B/9CiLmuvmf/3jZSH1h7Y0DvWbVF4lU+dCxS0dsKhkPgnXvZEseMgg7HggXvo\nPdqgaU74gHJn4fQZ4woKbyXKLFgOUuXmyw5zpTupM2o89mImPuuCi+HgojYlRqNx\nBQ/WyfNwhUXMwxxjiqLVP+fI73K9hNOf4OYXXYxBfHhGhnlgtnyW0mCRJh/GGlXL\na1ZRT++nAgMBAAECggEAHgUkDzLHgnrG0P1juuaSQi8t/fEIYv6uYZxEjI/zsVyC\nZeIDlNiiQk8SKIisEq56GH3xKuW09c/J4BoenwPLrjneicji8iC04nbN4cOwN1/U\ngeKm/ko5Styyvp5VT+bZZhH+A5d6mflq+qIDiG30nHz9KFVNY+vxTGRBZR3XTvyp\nzCP4bCqDEJUqwHYEWf7uk8f0x8FERFpNmzyN/u5ofjYsgh6uWa7bPMsaP9/EE639\nTWc0bOiLxS7P952b4d2/mhQlBIDkzHyL1SWoh9zkQyQS7XaBZMCl1pvQiTZlgkH9\ntDgg71h9AOSrBphWyteiJYPeISdm61rs3VBYJsPoyQKBgQDAjIKGVKvWcla0Yvi/\nI+qwmpt91z+XKKbHFy5ymCasniWDw9O+ayqZ6fHW7Esj+p/dTzHvDCXHTh1lakmp\nUNfUJ6lj1dFW7HFPUedN7gP0t736tpyUbGQ7bwdilQVL1szPyV67LFiNCSyTdfgr\nsY1iyim+OpoAvUIDwBPfJJYT7wKBgQC91GGMQnmCN07ujCnVc7e86ina9RY3Ky2O\nnm5m/fz+qDkf9fkdVC84UJnctnAI099OWLN6rW++Q/H2/iMj6QTb45a4CB+qksFZ\n2XA7jOoSYIZ0JNjiu/yQV1YyTkmv1tWXpwZ/iJMMs2Pp2DGu7dheby5/X46n4xGh\nam5RSD1HyQKBgElDLUa/YMKvrp3kKpFPsTSRHyi6hc+WAB8witO/YLe9VLjWAfMq\nA4OcqBAGyHBgJAOo5m72SEmVR0oXLv/larmmfaUm7ggM3vA3UbMtJQQwBXEnmlw/\nAcQ7cqvn16QLjtJg5FKDhQ3kt7lD4bF+VTWJhmiDE6XEXSHgK69z1EaxAoGAMrHr\nMyf1hz76B17LNUPoB72JW/4j5qvTSMkqtrqRu/h0+QIZeymmSqXL0VOva8wZULUD\niXmT4/4FOm74N3jdYVPQRml0+3qhxDr7bAvf3vSEM7Q7b6HAe1O3o0uhBiKbfBqQ\n87IngzbNMgAYlJzUMbQDeOSuFkvfw3nG6FIge3ECgYB3RBK/xh3zHU/vq2TnHut3\nbhY3Vnt9mVDlAjb4/0Fi0yIA8EEIkGhBHf/pl0DJJhHdLcOsus+xZM4ndDd7uSIJ\nr4uFA1nIcxksiD0MaMy64LBT3yAL0vYISH/4Xd1N4HfGHRZBR84mGZ1QmXGws75U\nqpLONUFjtumlgEblDE8Gtg==\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-9a91v@todo-61039.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}}} 
+[warn] ⚠  functions: The Cloud Firestore emulator is not running, so calls to Firestore will affect production.
+[info] ✔  functions[api]: http function initialized (http://localhost:5000/todo-61039/us-central1/api).
+[debug] [2020-05-03T08:46:34.292Z] [worker-~diagnostic~-20fd6951-1df5-4898-ac1c-b075abfbcf2b]: IDLE 
+[debug] [2020-05-03T08:46:37.447Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2020-05-03T08:46:37.447Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2020-05-03T08:46:37.448Z] Accepted request POST /todo-61039/us-central1/api/getTasks --> api
+[debug] [2020-05-03T08:46:37.451Z] [worker-pool] addWorker(api) 
+[debug] [2020-05-03T08:46:37.452Z] [worker-pool] Adding worker with key api, total=1 
+[debug] [2020-05-03T08:46:37.452Z] [worker-pool] submitWork(triggerId=api) 
+[debug] [2020-05-03T08:46:37.452Z] [worker-api-d79b64b3-b936-4f90-be60-32e6f86f1a0d]: Assigning socketPath: /var/folders/fd/ph81y6rj11g3w2plvgphkyr00000gn/T/fire_emu_5152.sock 
+[debug] [2020-05-03T08:46:37.452Z] [worker-api-d79b64b3-b936-4f90-be60-32e6f86f1a0d]: BUSY 
+[debug] [2020-05-03T08:46:37.730Z] [runtime-status] [5152] Functions runtime initialized. {"cwd":"/Users/herbsca/OneDrive/development/todo/functions","node_version":"13.13.0"} 
+[debug] [2020-05-03T08:46:37.731Z] [runtime-status] [5152] Disabled runtime features: undefined 
+[debug] [2020-05-03T08:46:37.733Z] [runtime-status] [5152] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-05-03T08:46:37.734Z] [runtime-status] [5152] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:37.736Z] [runtime-status] [5152] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-05-03T08:46:37.766Z] [runtime-status] [5152] Checked functions.config() {"config":{}} 
+[debug] [2020-05-03T08:46:37.767Z] [runtime-status] [5152] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:37.768Z] [runtime-status] [5152] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-05-03T08:46:37.768Z] [runtime-status] [5152] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.1","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-05-03T08:46:37.768Z] [runtime-status] [5152] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/herbsca/OneDrive/development/todo/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-05-03T08:46:37.870Z] [runtime-status] [5152] initializeApp(DEFAULT) {"databaseURL":"https://todo-61039.firebaseio.com","storageBucket":"todo-61039.appspot.com","projectId":"todo-61039","credential":{"implicit":false,"projectId":"todo-61039","privateKey":"-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCOx3oYAAzhLLIW\nZAU+ljCrsL+Gs9zjMhD3qT4AgsvPXZ75A05oPzlXRx4BhTCipRU04kcT4sFMatHN\nj0x67ANrN2fMyZafv6BX6CbgXMegD/mkE9IhCUpqxPqI2XB8oFrm+RTFqfel7sIp\nug5B/9CiLmuvmf/3jZSH1h7Y0DvWbVF4lU+dCxS0dsKhkPgnXvZEseMgg7HggXvo\nPdqgaU74gHJn4fQZ4woKbyXKLFgOUuXmyw5zpTupM2o89mImPuuCi+HgojYlRqNx\nBQ/WyfNwhUXMwxxjiqLVP+fI73K9hNOf4OYXXYxBfHhGhnlgtnyW0mCRJh/GGlXL\na1ZRT++nAgMBAAECggEAHgUkDzLHgnrG0P1juuaSQi8t/fEIYv6uYZxEjI/zsVyC\nZeIDlNiiQk8SKIisEq56GH3xKuW09c/J4BoenwPLrjneicji8iC04nbN4cOwN1/U\ngeKm/ko5Styyvp5VT+bZZhH+A5d6mflq+qIDiG30nHz9KFVNY+vxTGRBZR3XTvyp\nzCP4bCqDEJUqwHYEWf7uk8f0x8FERFpNmzyN/u5ofjYsgh6uWa7bPMsaP9/EE639\nTWc0bOiLxS7P952b4d2/mhQlBIDkzHyL1SWoh9zkQyQS7XaBZMCl1pvQiTZlgkH9\ntDgg71h9AOSrBphWyteiJYPeISdm61rs3VBYJsPoyQKBgQDAjIKGVKvWcla0Yvi/\nI+qwmpt91z+XKKbHFy5ymCasniWDw9O+ayqZ6fHW7Esj+p/dTzHvDCXHTh1lakmp\nUNfUJ6lj1dFW7HFPUedN7gP0t736tpyUbGQ7bwdilQVL1szPyV67LFiNCSyTdfgr\nsY1iyim+OpoAvUIDwBPfJJYT7wKBgQC91GGMQnmCN07ujCnVc7e86ina9RY3Ky2O\nnm5m/fz+qDkf9fkdVC84UJnctnAI099OWLN6rW++Q/H2/iMj6QTb45a4CB+qksFZ\n2XA7jOoSYIZ0JNjiu/yQV1YyTkmv1tWXpwZ/iJMMs2Pp2DGu7dheby5/X46n4xGh\nam5RSD1HyQKBgElDLUa/YMKvrp3kKpFPsTSRHyi6hc+WAB8witO/YLe9VLjWAfMq\nA4OcqBAGyHBgJAOo5m72SEmVR0oXLv/larmmfaUm7ggM3vA3UbMtJQQwBXEnmlw/\nAcQ7cqvn16QLjtJg5FKDhQ3kt7lD4bF+VTWJhmiDE6XEXSHgK69z1EaxAoGAMrHr\nMyf1hz76B17LNUPoB72JW/4j5qvTSMkqtrqRu/h0+QIZeymmSqXL0VOva8wZULUD\niXmT4/4FOm74N3jdYVPQRml0+3qhxDr7bAvf3vSEM7Q7b6HAe1O3o0uhBiKbfBqQ\n87IngzbNMgAYlJzUMbQDeOSuFkvfw3nG6FIge3ECgYB3RBK/xh3zHU/vq2TnHut3\nbhY3Vnt9mVDlAjb4/0Fi0yIA8EEIkGhBHf/pl0DJJhHdLcOsus+xZM4ndDd7uSIJ\nr4uFA1nIcxksiD0MaMy64LBT3yAL0vYISH/4Xd1N4HfGHRZBR84mGZ1QmXGws75U\nqpLONUFjtumlgEblDE8Gtg==\n-----END PRIVATE KEY-----\n","clientEmail":"firebase-adminsdk-9a91v@todo-61039.iam.gserviceaccount.com","httpClient":{"retry":{"maxRetries":4,"statusCodes":[503],"ioErrorCodes":["ECONNRESET","ETIMEDOUT"],"backOffFactor":0.5,"maxDelayInMillis":60000}}}} 
+[warn] ⚠  functions: The Cloud Firestore emulator is not running, so calls to Firestore will affect production.
+[debug] [2020-05-03T08:46:38.075Z] [runtime-status] [5152] Trigger "api" has been found, beginning invocation! 
+[info] i  functions: Beginning execution of "api"
+[debug] [2020-05-03T08:46:38.076Z] [runtime-status] [5152] triggerDefinition {"httpsTrigger":{},"name":"api","entryPoint":"api"} 
+[debug] [2020-05-03T08:46:38.076Z] [runtime-status] [5152] Running api in mode HTTPS 
+[debug] [2020-05-03T08:46:38.079Z] [runtime-status] [5152] Attempting to listen to socketPath: /var/folders/fd/ph81y6rj11g3w2plvgphkyr00000gn/T/fire_emu_5152.sock 
+[debug] [2020-05-03T08:46:38.084Z] [functions] Runtime ready! Sending request! 
+[debug] [2020-05-03T08:46:38.105Z] [runtime-status] [5152] Ephemeral server handling POST request 
+[debug] [2020-05-03T08:46:38.108Z] [runtime-status] [5152] Ephemeral server survived. 
+[warn] ⚠  Google API requested!
+   - URL: "https://www.googleapis.com/oauth2/v4/token"
+   - Be careful, this may be a production service.
+[info] i  functions: Finished "api" in ~1s
+[debug] [2020-05-03T08:46:39.587Z] [worker-api-d79b64b3-b936-4f90-be60-32e6f86f1a0d]: IDLE 
+[debug] [2020-05-03T08:46:39.588Z] [work-queue] {"queueLength":0,"workRunningCount":0}

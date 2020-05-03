@@ -6,3 +6,9 @@ yarn.lock
 
 # MAC System Files 
 .DS_Store
+
+# Firebase Files
+.firebase
+.firebaserc
+
+# System Wide

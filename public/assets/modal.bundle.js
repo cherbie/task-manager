@@ -249,11 +249,9 @@ var __spreadArrays = undefined && undefined.__spreadArrays || function () {
       mx: 1,
       mt: 1
     },
-    element: {
-      color: "primary",
-      onDelete: function onDelete(id) {
-        return deleteTag(id);
-      }
+    elementColor: "primary",
+    onDelete: function onDelete(id) {
+      return deleteTag(id);
     }
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], {
     my: 1,
@@ -262,7 +260,7 @@ var __spreadArrays = undefined && undefined.__spreadArrays || function () {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TaskProgress__WEBPACK_IMPORTED_MODULE_3__["default"], {
     name: "progress",
     value: formik.values.progress,
-    onChangeCommitted: function onChangeCommitted(event, value) {
+    onChangeCommitted: function onChangeCommitted(e, value) {
       return updateProgress(value);
     }
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], {

@@ -675,12 +675,16 @@ var __assign = undefined && undefined.__assign || function () {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], __assign({}, props.container, {
         component: "span",
         key: index
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Chip"], __assign({}, props.element, {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Chip"], {
+        onDelete: props.onDelete ? function () {
+          return props.onDelete(index);
+        } : null,
+        color: props.elementColor,
         label: label,
         key: index,
         variant: "outlined",
         size: "small"
-      })));
+      }));
     });
     setTagComponents(componentList);
   }, [props.tags]);
@@ -1186,11 +1190,6 @@ var TaskDetailedViewContainer = react__WEBPACK_IMPORTED_MODULE_0___default.a.laz
 
 var App = function App(props) {
   var classes = useStyle();
-  console.log("task state:");
-  console.log(props.tasks);
-  console.log(props.utility);
-  console.log(props.openModal);
-  console.log(props.firebase);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Box"], {
     component: _material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Container"],
     minHeight: "100%",
@@ -1215,11 +1214,7 @@ var App = function App(props) {
     fallback: react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["CircularProgress"], {
       color: "secondary"
     })
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TaskDetailedViewContainer, null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["Button"], {
-    onClick: function onClick() {
-      return props.openModal();
-    }
-  }, "Test Modal")));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TaskDetailedViewContainer, null))))));
 };
 
 var useStyle = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["makeStyles"])(function () {
@@ -1647,8 +1642,6 @@ var __assign = undefined && undefined.__assign || function () {
   if (state === void 0) {
     state = _Schema_defaults__WEBPACK_IMPORTED_MODULE_0__["initialState"].utility;
   }
-
-  console.log(state);
 
   switch (action.type) {
     case _actions_types__WEBPACK_IMPORTED_MODULE_1__["default"].MODAL:

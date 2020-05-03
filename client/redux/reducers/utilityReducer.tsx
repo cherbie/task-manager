@@ -3,7 +3,6 @@ import { initialState, defaultTask } from "../../Schema/defaults"
 import TYPES from "../actions/types"
 
 export default (state: IUtilityState = initialState.utility, action) => {
-  console.log(state)
   switch(action.type) {
     case TYPES.MODAL: {
       if(typeof action.open === "undefined")

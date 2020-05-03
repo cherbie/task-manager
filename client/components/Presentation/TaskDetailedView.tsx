@@ -81,11 +81,11 @@ export default (props: ITaskDetailedView) => {
                 </Tooltip>
               </Box>
               <Box width="80%" display="flex" justifyContent="center" flexWrap="wrap">
-                <Tags tags={formik.values.tags} container={{mx: 1, mt:1}} element={{color: "primary", onDelete: (id) => deleteTag(id)}} />
+                <Tags tags={formik.values.tags} container={{mx: 1, mt:1}} elementColor="primary" onDelete={(id) => deleteTag(id)} />
               </Box>
             </Box>
             <Box my={1} py={2} width="50%">
-              <TaskProgress name="progress" value={formik.values.progress} onChangeCommitted={(event, value) => updateProgress(value)} />
+              <TaskProgress name="progress" value={formik.values.progress} onChangeCommitted={(e, value) => updateProgress(value)} />
             </Box>
           </Box>
           <Box my={1} width="100%" display="flex" justifyContent="center">

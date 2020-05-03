@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { Box, Chip, Typography, BoxProps, ChipProps } from "@material-ui/core"
+import { Box, Chip, Typography } from "@material-ui/core"
 
 interface ITags {
   tags: string[];
-  container?: BoxProps
-  element?: ChipProps
+  container?: any;
+  elementColor?: "primary"|"secondary";
+  onDelete?: any;
   [other: string]: any;
 }
 
@@ -18,7 +19,7 @@ export default (props: ITags) => {
     else
       componentList = props.tags.map((label, index) => (
         <Box {...props.container} component="span" key={index}>
-          <Chip {...props.element} label={label} key={index} variant="outlined" size="small" />
+          <Chip onDelete={props.onDelete ? () => props.onDelete(index) : null} color={props.elementColor} label={label} key={index} variant="outlined" size="small" />
         </Box>
       ))
     

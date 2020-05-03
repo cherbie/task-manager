@@ -26,11 +26,6 @@ interface IApp {
 
 const App = (props: IApp) => {
   const classes = useStyle()
-  console.log(`task state:`)
-  console.log(props.tasks)
-  console.log(props.utility)
-  console.log(props.openModal)
-  console.log(props.firebase)
 
   return (
     <Fragment>
@@ -51,9 +46,6 @@ const App = (props: IApp) => {
             </>
           </Suspense>
         </Modal>
-        <Button onClick={() => props.openModal()}>
-          Test Modal
-        </Button>
       </Box>
     </Fragment>
   )

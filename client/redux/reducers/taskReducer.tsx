@@ -60,6 +60,13 @@ export default (state: ITaskState = initialState.tasks, action) => {
 
       return {...state, ...nstate}
     }
+    case TYPES.SET_TASKS: {
+      if(typeof action.tasks === "undefined")
+        return state
+      let nstate = {...state}
+      nstate.list = [...action.tasks] // set task list
+      return Object.assign({}, nstate);
+    }
     default: return state
   }
 }

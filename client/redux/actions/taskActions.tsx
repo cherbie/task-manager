@@ -1,6 +1,6 @@
 import { defaultTask } from "../../Schema/defaults"
 import TYPES from "./types"
-import { ITask } from "../../Schema/state"
+import { ITask, ITaskState } from "../../Schema/state"
 
 export const addTask = (index: number = -1, task: ITask) => ({
   type: TYPES.TASK,
@@ -23,4 +23,9 @@ export const filterTasksSearch = (on: boolean, match: string) => ({
   type: TYPES.SEARCH_FILTER,
   match: match,
   on: on
+})
+
+export const setTasks= (tasks: ITask[]) => ({
+  type: TYPES.SET_TASKS,
+  tasks: tasks
 })

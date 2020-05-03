@@ -7,5 +7,6 @@ export default {
   UPDATE_PROGRESS: "progress",
   COMPLETE_TASK: "complete",
   SEARCH_FILTER: "searchFilter",
-  TOGGLE_SEARCH_FILTER: "toggleSearchFilter"
+  TOGGLE_SEARCH_FILTER: "toggleSearchFilter",
+  SET_TASKS: "setTasks"
 }
